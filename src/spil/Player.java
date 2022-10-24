@@ -7,4 +7,8 @@ public class Player {
 
     }
 
+    public Account getAccount(){
+        return acc;
+    }
+
 }
