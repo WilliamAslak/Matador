@@ -2,6 +2,9 @@ package spil;
 
 public class Account {
 
+    public Account(){
+
+    }
     private int wallet = 1000;
 
     public int getWallet() {
