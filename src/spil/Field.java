@@ -2,14 +2,14 @@ package spil;
 
 public class Field {
 
-    private final String title;
-    private final int value;
-    private final boolean extraTurn;
+    private String title;
+    private int value;
+    private boolean extraTurn;
 
-    public Field(String t, int v, boolean e){
+    public Field(String t, int v){
         title = t;
         value = v;
-        extraTurn = e;
+        extraTurn = false;
     }
 
     public String getTitle(){
@@ -20,6 +20,10 @@ public class Field {
     }
     public boolean isExtraTurn(){
         return extraTurn;
+    }
+
+    public void setExtraTurn(boolean extraTurn) {
+        this.extraTurn = extraTurn;
     }
 
 }
