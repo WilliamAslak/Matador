@@ -13,66 +13,77 @@ public class Game {
         Dice d1 = new Dice();
         Dice d2 = new Dice();
         Rafflecup rc = new Rafflecup();
-        Field[] fields = initializeFields();
         Player p1 = new Player();
         Player p2 = new Player();
         Scanner scan = new Scanner(System.in);
-
+        //TODO ændre blabla til ægte descriptions
+        String[][] fieldInfo = {
+                {"Tower","blabla"},
+                {"Crater", "blabla"},
+                {"Palace gates", "blabla"},
+                {"Cold Desert", "blabla"},
+                {"Walled city", "blabla"},
+                {"Monastery", "blabla"},
+                {"Black cave", "blabla"},
+                {"Huts in the mountain", "blabla"},
+                {"The Werewall (werewolf-wall)", "blabla"},
+                {"The pit", "blabla"},
+                {"Goldmine", "blabla"}
+        };
+        int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
 
         System.out.println("Starting game...");
         System.out.println("Press enter to shake the raffle cup and roll the dice.");
 
         while(true){
-            roll(rc, d1, d2, p1, fields, scan);
+
+            if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
+
+            if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
+
         }
+
+        scan.close();
     }
 
 
-    public static void roll(Rafflecup rc, Dice d1, Dice d2, Player p, Field[] fields, Scanner scan) {
-        System.out.println("Player " + p.getPlayerNumber() + "'s turn to shake and roll the dice!");
+    public static boolean playTurn(Rafflecup rc, Dice d1, Dice d2, Player p, String[][] info, int[] values, Scanner scan) {
+        int playerNumber = p.getPlayerNumber();
+        System.out.println("Player " + playerNumber + "'s turn to shake and roll the dice!");
+
         scan.nextLine();
 
         rc.roll(d1, d2);
-        int rollValue = d1.getFaceValue() + d2.getFaceValue();
-        System.out.println("You rolled: " + rollValue);
-        System.out.println();
 
-        p.getAccount().deposit(fields[rollValue-2].getValue());
-        System.out.println();
+        int rollValue = d1.getFaceValue() + d2.getFaceValue();
+
+        String title = info[rollValue-2][0];
+
+        int value = values[rollValue-2];
+
+        String description = info[rollValue-2][1];
+
+        Account account = p.getAccount();
+
+        System.out.println("You rolled: " + rollValue + "\n" + "You landed on the field: " + title + "\n" + description);
+
+        if (value >= 0) {
+            System.out.println(account.deposit(value));
+        } else {
+            System.out.println(account.withdraw(value));
+        }
 
         if (rollValue == 10) {
             System.out.println("You got an extra turn!");
-            roll(rc,d1,d2,p, fields, scan);
+            playTurn(rc, d1, d2, p, info, values, scan);
         }
+        System.out.println();
 
-
-
-    }
-    /*
-    public static boolean hasWon(Player p) {
-        if (p.getPoints() >= 3000) {
-            System.out.println("Player " + p.getPlayerNumber() + " has won the game!");
+        if (account.getBalance() >= 3000) {
+            System.out.println("Player " + playerNumber + " has won the game!");
             return true;
         }
         return false;
-    }*/
-
-
-    public static Field[] initializeFields() {
-        Field[] fields = new Field[11];
-        fields[0] = new Field("Tower", 250);
-        fields[1] = new Field("Crater", -100);
-        fields[2] = new Field("Palace gates", 100);
-        fields[3] = new Field("Cold Desert", -20);
-        fields[4] = new Field("Walled city ", 180);
-        fields[5] = new Field("Monastery", 0);
-        fields[6] = new Field("Black cave", -70);
-        fields[7] = new Field("Huts in the mountain", 60);
-        fields[8] = new Field("The Werewall (werewolf-wall)", -80);
-        fields[8].setExtraTurn(true);
-        fields[9] = new Field("The pit", -50);
-        fields[10] = new Field("Goldmine", 650);
-        return fields;
     }
 
 }

@@ -12,11 +12,11 @@ class AccountTest {
     void setWallet() {
         Player player = new Player();
 
-        player.getAccount().setWallet(-50);
-        assertTrue(player.getAccount().getWallet() >= 0, "Fake news");
+        player.getAccount().setBalance(-50);
+        assertTrue(player.getAccount().getBalance() >= 0, "Fake news");
 
-        player.getAccount().setWallet(50);
-        assertFalse(player.getAccount().getWallet()<=0);
+        player.getAccount().setBalance(50);
+        assertFalse(player.getAccount().getBalance()<=0);
     }
 
 

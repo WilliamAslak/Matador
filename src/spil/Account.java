@@ -30,15 +30,15 @@ public class Account {
         return "Your account balance is: " + balance;
     }
 
-     /*
-    public void setWallet(int newWallet) {
-        if (newWallet < 0) {
+
+    public void setBalance(int newBalance) {
+        if (newBalance < 0) {
             System.out.println("Wallet cannot be less than 0");
         }
         else {
-            wallet = newWallet;
+            balance = newBalance;
         }
     }
-     */
+
 
 }
