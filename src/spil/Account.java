@@ -25,13 +25,13 @@ public class Account {
         return "Your new balance is: " + wallet;
     }
 
-    public boolean withdraw(int x){
+    public String withdraw(int x){
         if (wallet - x < 0) {
-            return false;
+            return "You cannot withdraw this amount";
         }
         else {
             wallet -= x;
-            return true;
+            return "Your new balance is: " + wallet;
         }
     }
 
