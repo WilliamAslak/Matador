@@ -12,12 +12,18 @@ public class Account {
         return balance;
     }
 
-    public String updateBalance(int x){
-        if (balance + x < 0) {
-            return "You cannot withdraw this amount";
+    public String deposit(int x){
+        balance += x;
+        return "Transaction successful. " + toString();
+    }
+
+    public String withdraw(int x){
+        if (balance + x < 0 ) {
+            balance = 0;
+            return "Transaction failed due to insufficient funds. Your balance has been set to 0";
         }
         balance += x;
-        return "Your new balance is: " + balance;
+        return "Transaction successful. " + toString();
     }
 
     public String toString(){
