@@ -12,7 +12,7 @@ class AccountTest {
     void setWallet() {
         Player player = new Player();
 
-        player.getAccount().setWallet(-50);
+        player.getAccount().setWallet(-5000);
         assertTrue(player.getAccount().getWallet() >= 0, "Fake news");
     }
 
@@ -22,7 +22,7 @@ class AccountTest {
     void withdraw() {
         Player player= new Player();
 
-        player.getAccount().withdraw(-100);
+        player.getAccount().withdraw(10000);
         assertFalse(player.getAccount().getWallet()<0);
     }
 }
