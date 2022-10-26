@@ -23,6 +23,8 @@ class AccountTest {
     // Negative test
     @org.junit.jupiter.api.Test
     void withdraw() {
-
+        Player player= new Player();
+        player.getAccount().withdraw(-100);
+        assertFalse(player.getAccount().getWallet()<0);
     }
 }
