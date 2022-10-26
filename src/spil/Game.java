@@ -19,15 +19,15 @@ public class Game {
         //TODO ændre blabla til ægte descriptions
         String[][] fieldInfo = {
                 {"Tower","blabla"},
-                {"Crater", "blabla"},
+                {"Crater", "You fell in the crater and broke your leg in the fall, you spend 100 gold on the hospital-bill."},
                 {"Palace gates", "blabla"},
-                {"Cold Desert", "blabla"},
+                {"Cold Desert", "You're feeling slightly chilly and couldn't find your jacket so you get a little bit sick, you spend 20 gold on cough medicine."},
                 {"Walled city", "blabla"},
-                {"Monastery", "blabla"},
+                {"Monastery", "You meditate with the monks, as they dont care for money you spend nothing."},
                 {"Black cave", "blabla"},
-                {"Huts in the mountain", "blabla"},
+                {"Huts in the mountain", "You help the locals hunt down a mountain lion, Gain 60 gold for your efforts"},
                 {"The Werewall (werewolf-wall)", "blabla"},
-                {"The pit", "blabla"},
+                {"The pit", "You fall down an bottomless pit, but a time wizards rescues you by rewinding the time, you give him 50 gold and is rewarded another turn."},
                 {"Goldmine", "blabla"}
         };
         int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
