@@ -7,7 +7,7 @@ public class Player {
     private static int nextPlayerNumber = 1;
 
     public Player(){
-        this.acc = new Account(1000);
+        this.acc = new Account();
         this.playerNumber = Player.nextPlayerNumber;
         Player.nextPlayerNumber++;
     }

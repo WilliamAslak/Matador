@@ -79,7 +79,7 @@ public class Game {
         }
         System.out.println();
 
-        if (account.getBalance() >= 3000) {
+        if (account.getWallet() >= 3000) {
             System.out.println("Player " + playerNumber + " has won the game!");
             return true;
         }
