@@ -30,7 +30,7 @@ public class Account {
             return "You cannot withdraw this amount";
         }
         else {
-            wallet -= x;
+            wallet += x;
             return "Your new balance is: " + wallet;
         }
     }
