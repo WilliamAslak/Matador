@@ -13,7 +13,7 @@ public class Account {
 
     public void setWallet(int newWallet) {
         if (newWallet < 0) {
-            System.out.println("Wallet cannot  be less than 0");
+            System.out.println("Wallet cannot be less than 0");
         }
         else {
             wallet = newWallet;
