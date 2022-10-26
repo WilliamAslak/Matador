@@ -38,7 +38,7 @@ public class Game {
                 {"The pit", "You fall down a steep pit, there's a vending machine in the corner of the pit selling ladders, you buy one for 50 gold and climb out."},
                 {"Goldmine", "JACKPOT! You find your way to the Goldmine and mine the a big chunk of gold, you recieve 650 coins!"}
         };
-        int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
+        int[] fieldValues = {0,250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
 
         //Creating all the GUI
         GUI_Field[] fields = new GUI_Field[12];
@@ -64,24 +64,33 @@ public class Game {
         System.out.println("Starting game...");
         System.out.println("Press enter to shake the raffle cup and roll the dice.");
 
-
-        while(true){
         //putting both cars on Start
         fields[0].setCar(gui_players[0], true);
         fields[0].setCar(gui_players[1], true);
 
-        if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
-        fields[d1.getFaceValue()+d2.getFaceValue()].setCar(gui_players[0], true);
-        gui_players[0].setBalance(p1.getAccount().getWallet());
+        int[] saveLocation = {0,0};
+        while(true){
 
-        if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
-        fields[d1.getFaceValue()+d2.getFaceValue()].setCar(gui_players[0], true);
-        gui_players[1].setBalance(p2.getAccount().getWallet());
+            if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
+            //gui
+            fields[saveLocation[0]].removeAllCars();
+            if(saveLocation[0] == saveLocation[1]) fields[saveLocation[0]].setCar(gui_players[1],true);
+            saveLocation[0] = rc.getSum(d1,d2)-1;
 
-        //resets all fields
-            for (int i = 0; i < 12; i++) {
-                fields[i].removeAllCars();
-            }
+
+            fields[rc.getSum(d1,d2)-1].setCar(gui_players[0], true);
+            gui_players[0].setBalance(p1.getAccount().getWallet());
+
+
+            if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
+            //gui
+            fields[saveLocation[1]].removeAllCars();
+            if(saveLocation[0] == saveLocation[1]) fields[saveLocation[1]].setCar(gui_players[0],true);
+            saveLocation[1] = rc.getSum(d1,d2)-1;
+
+            fields[rc.getSum(d1,d2)-1].setCar(gui_players[1], true);
+            gui_players[1].setBalance(p2.getAccount().getWallet());
+
 
         }
 
@@ -99,11 +108,12 @@ public class Game {
 
         int rollValue = rc.getSum(d1,d2);
 
-        String title = info[rollValue-2][0];
+        String title = info[rollValue-1][0];
 
-        int value = values[rollValue-2];
+        int value = values[rollValue-1];
 
-        String description = info[rollValue-2][1];
+        String description = info[rollValue-1][1];
+
 
 
         if(p.getAccount().getWallet()+value >= 0)
