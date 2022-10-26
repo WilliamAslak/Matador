@@ -1,6 +1,5 @@
 package spil;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Game {
@@ -27,7 +26,7 @@ public class Game {
                 {"Black cave", "blabla"},
                 {"Huts in the mountain", "You help the locals hunt down a mountain lion, Gain 60 gold for your efforts"},
                 {"The Werewall (werewolf-wall)", "blabla"},
-                {"The pit", "You fall down an bottomless pit, but a time wizards rescues you by rewinding the time, you give him 50 gold and is rewarded another turn."},
+                {"The pit", "You fall down a steep pit, there's a vending machine in the corner of the pit selling ladders, you buy one for 50 gold and climb out."},
                 {"Goldmine", "blabla"}
         };
         int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
