@@ -15,14 +15,14 @@ public class Game {
         Player p1 = new Player();
         Player p2 = new Player();
         Scanner scan = new Scanner(System.in);
-        //TODO ændre blabla til ægte descriptions
+
         String[][] fieldInfo = {
                 {"Tower","blabla"},
                 {"Crater", "You fell in the crater and broke your leg in the fall, you spend 100 gold on the hospital-bill."},
                 {"Palace gates", "blabla"},
                 {"Cold Desert", "You're feeling slightly chilly and couldn't find your jacket so you get a little bit sick, you spend 20 gold on cough medicine."},
                 {"Walled city", "blabla"},
-                {"Monastery", "You meditate with the monks, as they dont care for money you spend nothing."},
+                {"Monastery", "You meditate with the monks, as they do not care for money you spend nothing."},
                 {"Black cave", "blabla"},
                 {"Huts in the mountain", "You help the locals hunt down a mountain lion, Gain 60 gold for your efforts"},
                 {"The Werewall (werewolf-wall)", "blabla"},
@@ -47,14 +47,14 @@ public class Game {
 
 
     public static boolean playTurn(Rafflecup rc, Dice d1, Dice d2, Player p, String[][] info, int[] values, Scanner scan) {
-        int playerNumber = p.getPlayerNumber();
-        System.out.println("Player " + playerNumber + "'s turn to shake and roll the dice!");
+
+        System.out.println("Player " + p.getPlayerNumber() + "'s turn to shake and roll the dice!");
 
         scan.nextLine();
 
         rc.roll(d1, d2);
 
-        int rollValue = d1.getFaceValue() + d2.getFaceValue();
+        int rollValue = rc.getSum(d1,d2);
 
         String title = info[rollValue-2][0];
 
@@ -62,14 +62,22 @@ public class Game {
 
         String description = info[rollValue-2][1];
 
-        Account account = p.getAccount();
 
-        System.out.println("You rolled: " + rollValue + "\n" + "You landed on the field: " + title + "\n" + description);
+        if(p.getAccount().getWallet()+value >= 0)
+            System.out.println("You rolled: " + rollValue + "\n" + "You landed on the field: " + title + "\n" + description);
+        else System.out.println("You rolled: "+rollValue+"\n"+"You landed on field: "+title+"\n"+"" +
+                                "As you have no money your guardian angel came to the rescue and saved you by picking up the tab");
+
 
         if (value >= 0) {
-            System.out.println(account.deposit(value));
+            System.out.println(p.getAccount().deposit(value));
+        } else if(p.getAccount().getWallet()+value>=0){
+            System.out.println(p.getAccount().withdraw(value));
         } else {
-            System.out.println(account.withdraw(value));
+            System.out.println("You gave your remaining balance to your guardian angel\n" +
+                               "Your new balance is: 0");
+            p.getAccount().setWallet(0);
+
         }
 
         if (rollValue == 10) {
@@ -78,8 +86,8 @@ public class Game {
         }
         System.out.println();
 
-        if (account.getWallet() >= 3000) {
-            System.out.println("Player " + playerNumber + " has won the game!");
+        if (p.getAccount().getWallet() >= 3000) {
+            System.out.println("Player " + p.getPlayerNumber() + " has won the game!");
             return true;
         }
         return false;
