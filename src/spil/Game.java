@@ -17,17 +17,17 @@ public class Game {
         Scanner scan = new Scanner(System.in);
 
         String[][] fieldInfo = {
-                {"Tower","blabla"},
+                {"Tower","You have reached the top of The Tower and miraculously found a bag with 250 gold in it."},
                 {"Crater", "You fell in the crater and broke your leg in the fall, you spend 100 gold on the hospital-bill."},
-                {"Palace gates", "blabla"},
+                {"Palace gates", "You had a nice conversation with the King of the palace, therefore you received 100 gold."},
                 {"Cold Desert", "You're feeling slightly chilly and couldn't find your jacket so you get a little bit sick, you spend 20 gold on cough medicine."},
-                {"Walled city", "blabla"},
+                {"Walled city", "You managed to sell some items inside The Walled City, you earned 180 gold."},
                 {"Monastery", "You meditate with the monks, as they do not care for money you spend nothing."},
-                {"Black cave", "blabla"},
+                {"Black cave", "You have entered the black cave, it's too dark inside so you spend 70 gold on a flashlight."},
                 {"Huts in the mountain", "You help the locals hunt down a mountain lion, Gain 60 gold for your efforts"},
-                {"The Werewall (werewolf-wall)", "blabla"},
+                {"The Werewall (werewolf-wall)", "You got bit by a werewolf and you spend 80 gold to buy bandage."},
                 {"The pit", "You fall down a steep pit, there's a vending machine in the corner of the pit selling ladders, you buy one for 50 gold and climb out."},
-                {"Goldmine", "blabla"}
+                {"Goldmine", "You have arrived at the Goldmine, you hit the jackpot and gained 650 gold."}
         };
         int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
 
