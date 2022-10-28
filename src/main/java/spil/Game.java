@@ -1,5 +1,12 @@
 package spil;
 
+import gui_fields.GUI_Car;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
+import gui_main.GUI;
+
+import java.awt.*;
 import java.util.Scanner;
 
 public class Game {
@@ -16,29 +23,65 @@ public class Game {
         Player p2 = new Player();
         Scanner scan = new Scanner(System.in);
 
+
         String[][] fieldInfo = {
-                {"Tower","You have reached the top of The Tower and miraculously found a bag with 250 gold in it."},
+                {"Start", "You start here"},
+                {"Tower","You climbed the tower and found a chest on the top floor, you found 250 coins"},
                 {"Crater", "You fell in the crater and broke your leg in the fall, you spend 100 gold on the hospital-bill."},
-                {"Palace gates", "You had a nice conversation with the King of the palace, therefore you received 100 gold."},
+                {"Palace gates", "You arrive at the palace gates, and are greeted by the guards, for your hard travel you recieve 150 coins"},
                 {"Cold Desert", "You're feeling slightly chilly and couldn't find your jacket so you get a little bit sick, you spend 20 gold on cough medicine."},
-                {"Walled city", "You managed to sell some items inside The Walled City, you earned 180 gold."},
+                {"Walled city", "You find the treasure hidden within the Walled city, you recieve 180 coins"},
                 {"Monastery", "You meditate with the monks, as they do not care for money you spend nothing."},
-                {"Black cave", "You have entered the black cave, it's too dark inside so you spend 70 gold on a flashlight."},
+                {"Black cave", "You seem to get lost within the Black cave, you lose 70 points"},
                 {"Huts in the mountain", "You help the locals hunt down a mountain lion, Gain 60 gold for your efforts"},
-                {"The Werewall (werewolf-wall)", "You got bit by a werewolf and you spend 80 gold to buy bandage."},
+                {"The Werewall (werewolf-wall)", "You fight off the vampires on the Werewall, but in the battle you drop 80 coins, however you are allowed to roll again"},
                 {"The pit", "You fall down a steep pit, there's a vending machine in the corner of the pit selling ladders, you buy one for 50 gold and climb out."},
-                {"Goldmine", "You have arrived at the Goldmine, you hit the jackpot and gained 650 gold."}
+                {"Goldmine", "JACKPOT! You find your way to the Goldmine and mine the a big chunk of gold, you recieve 650 coins!"}
         };
         int[] fieldValues = {250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
+
+        //Creating all the GUI
+        GUI_Field[] fields = new GUI_Field[12];
+        for (int i = 0; i < 12; i++) {
+            fields[i] = new GUI_Street();
+            fields[i].setTitle(String.valueOf(fieldInfo[i][0]));
+            fields[i].setSubText(String.valueOf(fieldInfo[i][1]));
+        }
+        GUI gui = new GUI(fields);
+
+        GUI_Car[] cars = new GUI_Car[2];
+        cars[0] = new GUI_Car(Color.WHITE, Color.BLACK, GUI_Car.Type.UFO, GUI_Car.Pattern.CHECKERED);
+        cars[1] = new GUI_Car(Color.CYAN, Color.PINK, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.DOTTED);
+
+        GUI_Player[] gui_players = new GUI_Player[2];
+        for(int i = 0; i < 2; i++) {
+            //Creating the players
+            gui_players[i] = new GUI_Player("P" + (i+1), 0, cars[i]);
+            //Adding players to the board
+            gui.addPlayer(gui_players[i]);
+        }
 
         System.out.println("Starting game...");
         System.out.println("Press enter to shake the raffle cup and roll the dice.");
 
+
         while(true){
+        //putting both cars on Start
+        fields[0].setCar(gui_players[0], true);
+        fields[0].setCar(gui_players[1], true);
 
-            if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
+        if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
+        fields[d1.getFaceValue()+d2.getFaceValue()].setCar(gui_players[0], true);
+        gui_players[0].setBalance(p1.getAccount().getWallet());
 
-            if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
+        if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
+        fields[d1.getFaceValue()+d2.getFaceValue()].setCar(gui_players[0], true);
+        gui_players[1].setBalance(p2.getAccount().getWallet());
+
+        //resets all fields
+            for (int i = 0; i < 12; i++) {
+                fields[i].removeAllCars();
+            }
 
         }
 
