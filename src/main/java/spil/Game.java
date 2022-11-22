@@ -1,5 +1,6 @@
 package spil;
 
+import ChanceCards.ChanceCard;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -15,7 +16,6 @@ public class Game {
     }
 
     public static void run(){
-
         Dice d1 = new Dice();
         Dice d2 = new Dice();
         Rafflecup rc = new Rafflecup();
