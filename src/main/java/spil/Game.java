@@ -28,7 +28,7 @@ public class Game {
             System.out.println("Value must be between 2 and 4, try again!");
             playerCount = scan.nextInt();
         }
-        Player players[] = new Player[playerCount];
+        Player[] players = new Player[playerCount];
         for(int i=0; i<playerCount; i++)
             players[i] = new Player();
 
