@@ -101,7 +101,7 @@ public class Game {
                 fields[players[i].getPlayerPosition()].setCar(gui_players[i], true);
 
                 //updating gui wallet
-                gui_players[0].setBalance(players[i].getAccount().getWallet());
+                gui_players[i].setBalance(players[i].getAccount().getWallet());
             }
             if(stop) break;
 
