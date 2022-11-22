@@ -1,4 +1,4 @@
-package spil.Fields;
+package Fields;
 
 public class Parking extends Field {
     public Parking(){

@@ -1,4 +1,4 @@
-package spil.Fields;
+package Fields;
 
 import spil.Player;
 

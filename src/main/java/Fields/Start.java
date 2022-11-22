@@ -1,4 +1,4 @@
-package spil.Fields;
+package Fields;
 
 public class Start extends Field {
     int recieveMoney;
