@@ -31,8 +31,8 @@ public class Game {
         Player[] players = new Player[playerCount];
         for(int i=0; i<playerCount; i++)
             players[i] = new Player();
-
-
+        //Fix for player1 automatically rolling first run.
+        scan.nextLine();
         String[][] fieldInfo = {
                 {"Start", "You start here"},
                 {"Tower","You climbed the tower and found a chest on the top floor, you found 250 coins"},
@@ -71,6 +71,7 @@ public class Game {
             gui_players[i] = new GUI_Player("P" + (i+1), 0, cars[i]);
             //Adding players to the board
             gui.addPlayer(gui_players[i]);
+            gui_players[i].setBalance(players[i].getAccount().getWallet());
         }
 
         System.out.println("Starting game...");
