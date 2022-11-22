@@ -68,27 +68,30 @@ public class Game {
         fields[0].setCar(gui_players[0], true);
         fields[0].setCar(gui_players[1], true);
 
-        int[] saveLocation = {0,0};
         while(true){
 
             if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
             //gui
-            fields[saveLocation[0]].removeAllCars();
-            if(saveLocation[0] == saveLocation[1]) fields[saveLocation[0]].setCar(gui_players[1],true);
-            saveLocation[0] = rc.getSum(d1,d2)-1;
+            fields[p1.getPlayerPosition()].removeAllCars();
+            if(p1.getPlayerPosition() == p2.getPlayerPosition()) fields[p1.getPlayerPosition()].setCar(gui_players[1],true);
+            p1.setPlayerPosition(p1.getPlayerPosition()+rc.getSum(d1,d2));
+            if(p1.getPlayerPosition()>=fieldValues.length)
+                p1.setPlayerPosition (p1.getPlayerPosition() - fieldValues.length);
 
 
-            fields[rc.getSum(d1,d2)-1].setCar(gui_players[0], true);
+            fields[p1.getPlayerPosition()].setCar(gui_players[0], true);
             gui_players[0].setBalance(p1.getAccount().getWallet());
 
 
             if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
             //gui
-            fields[saveLocation[1]].removeAllCars();
-            if(saveLocation[0] == saveLocation[1]) fields[saveLocation[1]].setCar(gui_players[0],true);
-            saveLocation[1] = rc.getSum(d1,d2)-1;
+            fields[p2.getPlayerPosition()].removeAllCars();
+            if(p1.getPlayerPosition() == p2.getPlayerPosition()) fields[p2.getPlayerPosition()].setCar(gui_players[0],true);
+            p2.setPlayerPosition(rc.getSum(d1,d2)+p2.getPlayerPosition());
+            if(p2.getPlayerPosition()>=fieldValues.length)
+                p2.setPlayerPosition (p2.getPlayerPosition() - fieldValues.length);
 
-            fields[rc.getSum(d1,d2)-1].setCar(gui_players[1], true);
+            fields[p2.getPlayerPosition()].setCar(gui_players[1], true);
             gui_players[1].setBalance(p2.getAccount().getWallet());
 
 
