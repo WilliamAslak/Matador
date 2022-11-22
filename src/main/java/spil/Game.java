@@ -19,12 +19,19 @@ public class Game {
         Dice d1 = new Dice();
         Dice d2 = new Dice();
         Rafflecup rc = new Rafflecup();
-        Player p1 = new Player();
-        Player p2 = new Player();
-        Player p3 = new Player();
-        Player p4 = new Player();
+
+        //Finding out how many players are playing.
         Scanner scan = new Scanner(System.in);
-        int playerCount = 0;
+        System.out.println("Enter the amount of players");
+        int playerCount = scan.nextInt();
+        while(playerCount>4 || playerCount<2){
+            System.out.println("Value must be between 2 and 4, try again!");
+            playerCount = scan.nextInt();
+        }
+        Player players[] = new Player[playerCount];
+        for(int i=0; i<playerCount; i++)
+            players[i] = new Player();
+
 
         String[][] fieldInfo = {
                 {"Start", "You start here"},
@@ -41,9 +48,6 @@ public class Game {
                 {"Goldmine", "JACKPOT! You find your way to the Goldmine and mine the a big chunk of gold, you recieve 650 coins!"}
         };
         int[] fieldValues = {0,250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
-
-        System.out.println("Enter the amount of players");
-        playerCount = scan.nextInt();
 
         //Creating all the GUI
         GUI_Field[] fields = new GUI_Field[12];
@@ -80,91 +84,28 @@ public class Game {
         }
 
 
-        int[] saveLocation = {0,0,0,0};
+        while(true) {
 
-        while(true){
-        if (playerCount == 2) {
-
-            while(true){
-
-            if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
-            //gui
-            fields[p1.getPlayerPosition()].removeAllCars();
-            if(p1.getPlayerPosition() == p2.getPlayerPosition()) fields[p1.getPlayerPosition()].setCar(gui_players[1],true);
-            p1.setPlayerPosition(p1.getPlayerPosition()+rc.getSum(d1,d2));
-            if(p1.getPlayerPosition()>=fieldValues.length)
-                p1.setPlayerPosition (p1.getPlayerPosition() - fieldValues.length);
-
-
-            fields[p1.getPlayerPosition()].setCar(gui_players[0], true);
-            gui_players[0].setBalance(p1.getAccount().getWallet());
-
-
-            if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
-            //gui
-            fields[p2.getPlayerPosition()].removeAllCars();
-            if(p1.getPlayerPosition() == p2.getPlayerPosition()) fields[p2.getPlayerPosition()].setCar(gui_players[0],true);
-            p2.setPlayerPosition(rc.getSum(d1,d2)+p2.getPlayerPosition());
-            if(p2.getPlayerPosition()>=fieldValues.length)
-                p2.setPlayerPosition (p2.getPlayerPosition() - fieldValues.length);
-
-            fields[p2.getPlayerPosition()].setCar(gui_players[1], true);
-            gui_players[1].setBalance(p2.getAccount().getWallet());
-
-                if (playTurn(rc, d1, d2, p3, fieldInfo, fieldValues, scan)) break;
+            boolean stop = false;
+            for(int i = 0; i < playerCount; i++) {
+                if (playTurn(rc, d1, d2, players[i], fieldInfo, fieldValues, scan)) {stop=true; break;}
                 //gui
-                fields[saveLocation[2]].removeAllCars();
-                if(saveLocation[0] == saveLocation[1]) fields[saveLocation[2]].setCar(gui_players[2],true);
-                saveLocation[2] = rc.getSum(d1,d2)-1;
+                //remove car from old space
+                fields[players[i].getPlayerPosition()].setCar(gui_players[i], false);
+                //calculate new space
+                players[i].setPlayerPosition(players[i].getPlayerPosition() + rc.getSum(d1, d2));
+                if (players[i].getPlayerPosition() >= fieldValues.length)
+                    players[i].setPlayerPosition(players[i].getPlayerPosition() - fieldValues.length);
+                //add car to new space
+                fields[players[i].getPlayerPosition()].setCar(gui_players[i], true);
 
-                fields[rc.getSum(d1,d2)-1].setCar(gui_players[2], true);
-                gui_players[2].setBalance(p3.getAccount().getWallet());
+                //updating gui wallet
+                gui_players[0].setBalance(players[i].getAccount().getWallet());
             }
+            if(stop) break;
+
         }
-        if (playerCount == 4) {
 
-            while(true){
-
-                if (playTurn(rc, d1, d2, p1, fieldInfo, fieldValues, scan)) break;
-                //gui
-                fields[saveLocation[0]].removeAllCars();
-                if(saveLocation[0] == saveLocation[1]) fields[saveLocation[0]].setCar(gui_players[0],true);
-                saveLocation[0] = rc.getSum(d1,d2)-1;
-
-                fields[rc.getSum(d1,d2)-1].setCar(gui_players[0], true);
-                gui_players[0].setBalance(p1.getAccount().getWallet());
-
-
-                if (playTurn(rc, d1, d2, p2, fieldInfo, fieldValues, scan)) break;
-                //gui
-                fields[saveLocation[1]].removeAllCars();
-                if(saveLocation[0] == saveLocation[1]) fields[saveLocation[1]].setCar(gui_players[1],true);
-                saveLocation[1] = rc.getSum(d1,d2)-1;
-
-                fields[rc.getSum(d1,d2)-1].setCar(gui_players[1], true);
-                gui_players[1].setBalance(p2.getAccount().getWallet());
-
-
-                if (playTurn(rc, d1, d2, p3, fieldInfo, fieldValues, scan)) break;
-                //gui
-                fields[saveLocation[2]].removeAllCars();
-                if(saveLocation[0] == saveLocation[1]) fields[saveLocation[2]].setCar(gui_players[2],true);
-                saveLocation[2] = rc.getSum(d1,d2)-1;
-
-                fields[rc.getSum(d1,d2)-1].setCar(gui_players[2], true);
-                gui_players[2].setBalance(p3.getAccount().getWallet());
-
-
-                if (playTurn(rc, d1, d2, p4, fieldInfo, fieldValues, scan)) break;
-                //gui
-                fields[saveLocation[3]].removeAllCars();
-                if(saveLocation[0] == saveLocation[1]) fields[saveLocation[3]].setCar(gui_players[3],true);
-                saveLocation[3] = rc.getSum(d1,d2)-1;
-
-                fields[rc.getSum(d1,d2)-1].setCar(gui_players[3], true);
-                gui_players[3].setBalance(p3.getAccount().getWallet());
-            }
-        }
 
 
 
