@@ -1,6 +1,5 @@
 package spil;
 
-import ChanceCards.ChanceCard;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -16,8 +15,11 @@ public class Game {
     }
 
     public static void run(){
-        Gameboard gameboard = new Gameboard();
-        gameboard.initFields();
+        GameBoard gameBoard = new GameBoard();
+
+        //Creating all the GUI
+        GUI_Field[] fields = gameBoard.getFieldsGUI();
+        GUI gui = new GUI(fields);
 
         Dice d1 = new Dice();
         Dice d2 = new Dice();
@@ -52,14 +54,6 @@ public class Game {
         };
         int[] fieldValues = {0,250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
 
-        //Creating all the GUI
-        GUI_Field[] fields = new GUI_Field[12];
-        for (int i = 0; i < 12; i++) {
-            fields[i] = new GUI_Street();
-            fields[i].setTitle(String.valueOf(fieldInfo[i][0]));
-            fields[i].setSubText(String.valueOf(fieldInfo[i][1]));
-        }
-        GUI gui = new GUI(fields);
 
         GUI_Car[] cars = new GUI_Car[4];
         cars[0] = new GUI_Car(Color.WHITE, Color.BLACK, GUI_Car.Type.UFO, GUI_Car.Pattern.CHECKERED);
