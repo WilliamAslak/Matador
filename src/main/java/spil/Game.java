@@ -16,6 +16,9 @@ public class Game {
     }
 
     public static void run(){
+        Gameboard gameboard = new Gameboard();
+        gameboard.initFields();
+
         Dice d1 = new Dice();
         Dice d2 = new Dice();
         Rafflecup rc = new Rafflecup();
