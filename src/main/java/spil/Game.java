@@ -1,9 +1,6 @@
 package spil;
 
-import ChanceCards.Birthday;
-import ChanceCards.ChanceCard;
-import ChanceCards.EatenTooMuch;
-import ChanceCards.MoveToStart;
+import ChanceCards.*;
 import Fields.*;
 
 public class Game {
@@ -152,7 +149,8 @@ public class Game {
                 break;
 
             case 2:
-                //kald
+                ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
+                moveFiveForward.process(players, currentPlayer);
                 break;
 
             case 3:
