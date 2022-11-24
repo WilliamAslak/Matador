@@ -148,7 +148,7 @@ public class Game {
             case 1:
                 //kald på kortet
                 ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
-                //birthday.process(currentPlayer);
+                birthday.process(players, currentPlayer);
                 break;
 
             case 2:

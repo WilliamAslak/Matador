@@ -1,5 +1,6 @@
 package ChanceCards;
 
+import spil.Game;
 import spil.Player;
 
 public class Birthday extends ChanceCard {
@@ -8,7 +9,13 @@ public class Birthday extends ChanceCard {
         super(description);
     }
 
-    public void process(Player[] bois, Player with){
-        //with.
+    public void process(Player[] in, Player with){
+        for (int i = 0; i < in.length; i++) {
+            if (!in[i].getName().equals(with.getName())) {
+                in[i].getAccount().withdraw(1000000);
+            }
+            with.getAccount().deposit(1000000 * in.length -1);
+        }
+
     }
 }
