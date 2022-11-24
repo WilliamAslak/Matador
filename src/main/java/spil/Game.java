@@ -140,25 +140,25 @@ public class Game {
     }
 
     private void takeChance(Field currentField) {
-        int a = (int) (Math.random() * (4+1));
+        int a = (int) (Math.random() * (3+1));
         switch (a){
-            case 1:
+            case 0:
                 //kald på kortet
                 ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
                 birthday.process(players, currentPlayer);
                 break;
 
-            case 2:
+            case 1:
                 ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
                 moveFiveForward.process(players, currentPlayer);
                 break;
 
-            case 3:
+            case 2:
                 ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
                 movetostart.process( players,currentPlayer);
                 break;
 
-            case 4:
+            case 3:
                 ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
                 eatentoomuch.process(players, currentPlayer);
                 break;

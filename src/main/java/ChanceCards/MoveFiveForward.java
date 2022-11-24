@@ -10,5 +10,6 @@ public class MoveFiveForward extends ChanceCard {
 
     public void process(Player[] in, Player with){
         with.setPosition(with.getPosition()+5);
+        System.out.println("fem frem");
     }
 }

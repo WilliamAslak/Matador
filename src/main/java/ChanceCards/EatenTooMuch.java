@@ -9,5 +9,6 @@ public class EatenTooMuch extends ChanceCard {
     }
     public void process(Player[] in, Player with){
         with.getAccount().withdraw(2);
+        System.out.println("Æde");
     }
 }
