@@ -10,6 +10,7 @@ public class Player {
     private boolean isInJail = false;
     private int playerPosition = 0;
     private ArrayList<Integer> ownedPropertiesPositions = new ArrayList<>();
+    private boolean hasLost = false;
 
     public Player(String name, int startMoney){
         this.name = name;
@@ -32,6 +33,14 @@ public class Player {
     }
     public void setPosition(int x ){
         playerPosition=x;
+    }
+
+    public boolean getHasLost() {
+        return hasLost;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
     }
 
     public void setInJail(Boolean inJail) {

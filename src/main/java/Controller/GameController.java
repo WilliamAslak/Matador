@@ -56,8 +56,8 @@ public class GameController {
 
 
     public void playTurn() {
-
-        while (true) {
+        boolean isGameOver = false;
+        while (!isGameOver) {
             int playerNumber = 0;
 
             while (playerNumber < playerCount) {
@@ -86,6 +86,12 @@ public class GameController {
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
                 if (currentBalance != gui.getPlayer(playerNumber).getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
+                }
+
+                if(game.checkIfPlayerLost()) {
+                    isGameOver = true;
+                    gui.showEndGame(game.getCurrentPlayer().getName());
+                    break;
                 }
 
                 playerNumber++;

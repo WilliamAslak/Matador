@@ -84,9 +84,6 @@ public class Game {
                     if (players[i].getOwnedPropertiesPositions().contains(position)) break;
                     i++;
                 }
-                System.out.println();
-                System.out.println(players[i].getName());
-                System.out.println(i);
 
                 if (!players[i].getName().equals(currentPlayer.getName())) {
                     option = "Betal";
@@ -165,6 +162,9 @@ public class Game {
         return dice.getFaceValue();
     }
 
+    public boolean checkIfPlayerLost() {
+        return currentPlayer.getAccount().getIsEmpty();
+    }
 
 }
 /*
