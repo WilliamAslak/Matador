@@ -99,7 +99,7 @@ public class Game {
 
             case "chance":
                 option = "Tag chance kort";
-                takeChance(currentField);
+                takeChance();
                 break;
 
             default:
@@ -139,7 +139,15 @@ public class Game {
         currentPlayer.getAccount().withdraw(((Street) currentField).getPrice());
     }
 
-    private void takeChance(Field currentField) {
+    private void takeChance() {
+
+        //TODO CREATE LIST OF CHANCE CARDS.
+        // INITIALIZE IT (in a method e.g initCards)
+        // SHUFFLE IT. (also in the method)
+        // TAKE FIRST CARD (REMOVE FROM LIST).
+        // PROCESS IT (GET A STRING - USE IN SWITCH CASE - DO LOGIC IN THIS CLASS)
+        // WHEN FINISHED PUT THE CARD AT THE END OF THE LIST
+        // COPY PASTE GAMEBOARD
         int a = (int) (Math.random() * (3+1));
         switch (a){
             case 0:
@@ -156,6 +164,7 @@ public class Game {
             case 2:
                 ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
                 movetostart.process( players,currentPlayer);
+
                 break;
 
             case 3:
