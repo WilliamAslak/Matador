@@ -59,7 +59,6 @@ public class GameGUI {
         gui.getFields()[currentPos].setCar(players.get(playerNumber), false);
         gui.getFields()[newPos].setCar(players.get(playerNumber), true);
 
-
     }
 
     public void action(String message, String button) {
@@ -67,5 +66,10 @@ public class GameGUI {
     }
     public void showDie(int faceValue) {
         gui.setDie(faceValue);
+    }
+
+    public void showEndGame(String playerName){
+        gui.showMessage(playerName + "has lost. \n The game has ended");
+        gui.close();
     }
 }

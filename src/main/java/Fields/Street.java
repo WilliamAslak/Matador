@@ -30,6 +30,10 @@ public class Street extends Field{
         return "ledig";
     }
 
+    public void setIsOwned(boolean owned) {
+        isOwned = owned;
+    }
+
     public int getPrice() {
         return price;
     }

@@ -7,6 +7,8 @@ public class Game {
     private GameBoard gameBoard;
     private Player[] players;
     private Player currentPlayer;
+    private Player paidPlayer = null;
+    private int paidPlayerNumber;
     private Dice dice;
     private String message;
     private String option;
@@ -67,30 +69,33 @@ public class Game {
 
 
     public void fieldAction() {
-        Field currentField = gameBoard.getFields()[currentPlayer.getPosition()];
 
-        message = "Du landede på " + currentField.getName();
+        Integer position = currentPlayer.getPosition();
+
+        message = "Du landede på " + gameBoard.getFields()[position].getName();
         option = "Ok";
 
-        switch (currentField.action()) {
+        switch (gameBoard.getFields()[position].action()) {
 
             case "ejet":
                 int i = 0;
+
+
                 while(i < players.length) {
-                    if (!players[i].getOwnedProperties().contains(currentField)) {
-                        i++;
-                    }
+                    if (players[i].getOwnedPropertiesPositions().contains(position)) break;
+                    i++;
                 }
 
                 if (!players[i].getName().equals(currentPlayer.getName())) {
                     option = "Betal";
-                    pay(players[i], currentField);
+                    paidPlayerNumber = i;
+                    pay(players[i], position);
                 }
                 break;
 
             case "ledig":
                 option = "Køb";
-                purchase(currentField);
+                purchase(position);
                 break;
 
             case "fængsel":
@@ -128,15 +133,31 @@ public class Game {
 
     }
 
-    private void pay(Player player, Field currentField) {
-        int amount = ((Street) currentField).getPrice();
+    private void pay(Player player, Integer position) {
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
         currentPlayer.getAccount().withdraw(amount);
         player.getAccount().deposit(amount);
+        paidPlayer = player;
+
     }
 
-    private void purchase(Field currentField) {
-        currentPlayer.addProperty((Street) currentField);
-        currentPlayer.getAccount().withdraw(((Street) currentField).getPrice());
+    public Player getPaidPlayer() {
+        return paidPlayer;
+    }
+
+    public int getPaidPlayerNumber() {
+        return paidPlayerNumber;
+    }
+
+    private void purchase(Integer position) {
+
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+
+        currentPlayer.addPropertyPosition(currentPlayer.getPosition());
+
+        currentPlayer.getAccount().withdraw(amount);
+
+        ((Street) gameBoard.getFields()[position]).setIsOwned(true);
     }
 
     private void takeChance() {
@@ -178,6 +199,9 @@ public class Game {
         return dice.getFaceValue();
     }
 
+    public boolean checkIfPlayerLost() {
+        return currentPlayer.getAccount().getIsEmpty();
+    }
 
 
 
