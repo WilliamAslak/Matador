@@ -1,6 +1,7 @@
 package Fields;
 
 import gui_fields.GUI_Field;
+import spil.Player;
 
 public abstract class Field {
 
@@ -15,5 +16,8 @@ public abstract class Field {
     public String getName() {
         return name;
     }
+
+    abstract public String action();
+
 
 }

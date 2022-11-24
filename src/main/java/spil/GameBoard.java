@@ -43,9 +43,6 @@ public class GameBoard {
                 new Street("STRANDPROMENADEN",Color.blue, 5)
         };
 
-        for (int i = 0; i < fields.length ; i++) {
-            fieldsGUI[i] = fields[i].toGui();
-        }
     }
 
     public Field getField(int pos) {

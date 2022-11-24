@@ -1,11 +1,11 @@
 package spil;
 
 public class Account {
+    private int wallet;
 
-    public Account(){
-
+    public Account(int wallet){
+        this.wallet = wallet;
     }
-    private int wallet = 1000;
 
     public int getWallet() {
         return wallet;
@@ -30,7 +30,7 @@ public class Account {
             return "You cannot withdraw this amount";
         }
         else {
-            wallet += x;
+            wallet -= x;
             return "Your new balance is: " + wallet;
         }
     }

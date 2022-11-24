@@ -19,16 +19,20 @@ public class Street extends Field{
 
     @Override
     public GUI_Field toGui() {
-        return new GUI_Street(super.getName(), "",
-                "", price + "M", color, Color.black);
+        return new GUI_Street(super.getName(), "" + price + "M",
+                super.getName(), price + "M", color, Color.black);
 
     }
 
-   public void purchase (Player p){
+    @Override
+    public String action() {
+        if (isOwned) return "ejet";
+        return "ledig";
+    }
 
-   }
+    public int getPrice() {
+        return price;
+    }
 
-   public void sell (Player p){
 
-   }
 }

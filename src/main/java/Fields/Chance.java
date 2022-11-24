@@ -14,6 +14,11 @@ public class Chance extends Field{
 
     @Override
     public GUI_Field toGui() {
-        return new GUI_Chance("?", "Chance" , "", Color.white, Color.black);
+        return new GUI_Chance("?", "Chance" , "Tag et chance kort", Color.white, Color.black);
+    }
+
+    @Override
+    public String action() {
+        return "chance";
     }
 }

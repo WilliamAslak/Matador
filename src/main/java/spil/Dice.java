@@ -4,13 +4,15 @@ public class Dice {
 
     private int faceValue;
 
-    public Dice(){}
+    public Dice(){
 
-    public void setFaceValue(int x){
-        faceValue = x;
     }
+
     public int getFaceValue(){
         return faceValue;
+    }
+    public void roll() {
+        faceValue = ((int)(Math.random()*6+1));
     }
 
 }
