@@ -1,9 +1,6 @@
 package spil;
 
-import ChanceCards.Birthday;
-import ChanceCards.ChanceCard;
-import ChanceCards.EatenTooMuch;
-import ChanceCards.MoveToStart;
+import ChanceCards.*;
 import Fields.*;
 
 public class Game {
