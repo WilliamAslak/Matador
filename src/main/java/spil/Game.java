@@ -235,12 +235,12 @@ public class Game {
             fields[0].setCar(gui_players[i], true);
         }
 
+        boolean cont = true;
+        while(cont) {
 
-        while(true) {
 
-            boolean stop = false;
             for(int i = 0; i < playerCount; i++) {
-                if (playTurn(rc, d1, d2, players[i], fieldInfo, fieldValues, scan)) {stop=true; break;}
+                if (playTurn(rc, d1, d2, players[i], fieldInfo, fieldValues, scan)) {cont=false; break;}
                 //gui
                 //remove car from old space
                 fields[players[i].getPlayerPosition()].setCar(gui_players[i], false);
@@ -254,7 +254,6 @@ public class Game {
                 //updating gui wallet
                 gui_players[i].setBalance(players[i].getAccount().getWallet());
             }
-            if(stop) break;
 
         }
 
