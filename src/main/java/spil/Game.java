@@ -162,6 +162,7 @@ public class Game {
 
             case 4:
                 ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
+                eatentoomuch.process(players, currentPlayer);
                 break;
 
         }
