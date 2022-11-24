@@ -1,5 +1,7 @@
 package spil;
 
+import ChanceCards.Birthday;
+import ChanceCards.ChanceCard;
 import Fields.*;
 
 public class Game {
@@ -98,6 +100,7 @@ public class Game {
 
             case "chance":
                 option = "Tag chance kort";
+                takeChance();
                 break;
 
             default:
@@ -137,9 +140,34 @@ public class Game {
         currentPlayer.getAccount().withdraw(((Street) currentField).getPrice());
     }
 
+    private void takeChance(Field currentField) {
+        int a = (int) (Math.random() * (4+1));
+        switch (a){
+            case 1:
+                //kald på kortet
+                ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
+                birthday.process(currentPlayer);
+                break;
+
+            case 2:
+                //kald
+                break;
+
+            case 3:
+                //kald
+                break;
+
+            case 4:
+                //kald
+                break;
+
+        }
+    }
     public int getDiceValue() {
         return dice.getFaceValue();
     }
+
+
 
 
 }

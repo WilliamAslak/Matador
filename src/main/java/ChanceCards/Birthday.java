@@ -9,7 +9,7 @@ public class Birthday extends ChanceCard {
         super(description);
     }
 
-    public void process(Game in, Player with){
-
+    public void process(Player with){
+        with.
     }
 }

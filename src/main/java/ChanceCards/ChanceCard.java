@@ -9,5 +9,5 @@ abstract public class ChanceCard {
     public ChanceCard(String description) {
         this.description = description;
     }
-    abstract public void process(Game game, Player player);
+    abstract public void process(Player player);
 }
