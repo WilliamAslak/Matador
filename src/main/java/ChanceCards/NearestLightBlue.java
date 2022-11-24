@@ -1,6 +1,5 @@
 package ChanceCards;
 
-import spil.Game;
 import spil.Player;
 
 public class NearestLightBlue extends ChanceCard {
@@ -9,7 +8,7 @@ public class NearestLightBlue extends ChanceCard {
         super(description);
     }
 
-    public void process(Game in, Player with){
+    public void process(Player[] in, Player with){
 
     }
 }

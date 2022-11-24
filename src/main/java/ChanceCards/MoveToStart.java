@@ -1,6 +1,5 @@
 package ChanceCards;
 
-import spil.Game;
 import spil.Player;
 
 public class MoveToStart extends ChanceCard {
@@ -9,7 +8,9 @@ public class MoveToStart extends ChanceCard {
         super(description);
     }
 
-    public void process(Game in, Player with){
+    public void process(Player[] in, Player with){
+        System.out.println("Du skal rykke tilbage til Start-feltet og modtage 2M");
+        with.setPosition(0);
 
     }
 }

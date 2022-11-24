@@ -2,6 +2,8 @@ package spil;
 
 import ChanceCards.Birthday;
 import ChanceCards.ChanceCard;
+import ChanceCards.EatenTooMuch;
+import ChanceCards.MoveToStart;
 import Fields.*;
 
 public class Game {
@@ -100,7 +102,7 @@ public class Game {
 
             case "chance":
                 option = "Tag chance kort";
-                takeChance();
+                takeChance(currentField);
                 break;
 
             default:
@@ -146,7 +148,7 @@ public class Game {
             case 1:
                 //kald på kortet
                 ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
-                birthday.process(currentPlayer);
+                //birthday.process(currentPlayer);
                 break;
 
             case 2:
@@ -154,11 +156,12 @@ public class Game {
                 break;
 
             case 3:
-                //kald
+                ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
+                movetostart.process( players,currentPlayer);
                 break;
 
             case 4:
-                //kald
+                ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
                 break;
 
         }
