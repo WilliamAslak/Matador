@@ -1,9 +1,6 @@
 package spil;
 
-import ChanceCards.Birthday;
-import ChanceCards.ChanceCard;
-import ChanceCards.EatenTooMuch;
-import ChanceCards.MoveToStart;
+import ChanceCards.*;
 import Fields.*;
 
 public class Game {
@@ -146,13 +143,13 @@ public class Game {
         int a = (int) (Math.random() * (4+1));
         switch (a){
             case 1:
-                //kald på kortet
                 ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
                 birthday.process(players, currentPlayer);
                 break;
 
             case 2:
-                //kald
+                ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
+                moveFiveForward.process(players, currentPlayer);
                 break;
 
             case 3:
@@ -161,7 +158,7 @@ public class Game {
                 break;
 
             case 4:
-                ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
+                ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("Du har spist for meget, betal 2M");
                 break;
 
         }
