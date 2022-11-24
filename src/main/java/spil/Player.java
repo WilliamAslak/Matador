@@ -9,7 +9,7 @@ public class Player {
     private Account acc;
     private boolean isInJail = false;
     private int playerPosition = 0;
-    private ArrayList<Street> ownedProperties = new ArrayList<>();
+    private ArrayList<Integer> ownedPropertiesPositions = new ArrayList<>();
 
     public Player(String name, int startMoney){
         this.name = name;
@@ -21,12 +21,11 @@ public class Player {
         return name;
     }
 
-    public void addProperty(Street street) {
-        ownedProperties.add(street);
+    public void addPropertyPosition(Integer position) {ownedPropertiesPositions.add(position);
     }
 
-    public ArrayList<Street> getOwnedProperties() {
-        return ownedProperties;
+    public ArrayList<Integer> getOwnedPropertiesPositions() {
+        return ownedPropertiesPositions;
     }
     public int getPosition(){
         return playerPosition;
