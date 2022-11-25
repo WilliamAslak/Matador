@@ -6,11 +6,11 @@ import gui_fields.GUI_Start;
 import java.awt.*;
 
 public class Start extends Field {
-    int receiveMoney;
+    private int receiveMoney;
 
-    public Start(int recieveMoney){
+    public Start(int receiveMoney){
         super ("START");
-        this.receiveMoney=recieveMoney;
+        this.receiveMoney=receiveMoney;
     }
 
     @Override

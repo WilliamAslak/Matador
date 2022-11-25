@@ -6,9 +6,9 @@ import gui_fields.GUI_Street;
 import java.awt.*;
 
 public class Street extends Field{
-    Color color;
-    int price;
-    boolean isOwned = false;
+    private Color color;
+    private int price;
+    private boolean isOwned = false;
 
     public Street(String name, Color color, int price){
         super(name);

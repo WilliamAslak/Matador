@@ -13,9 +13,6 @@ public class Jail extends Field {
         super("FÆNGSEL");
     }
 
-    public void release(Player p){
-        p.setInJail(false);
-    }
 
     @Override
     public GUI_Field toGui() {
