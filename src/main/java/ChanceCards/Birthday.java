@@ -9,13 +9,13 @@ public class Birthday extends ChanceCard {
         super(description);
     }
 
-    public void process(Player[] in, Player with){
-        for (int i = 0; i < in.length; i++) {
-            if (!in[i].getName().equals(with.getName())) {
-                in[i].getAccount().withdraw(1);
+    public void process(Player[] players, Player current){
+        for (int i = 0; i < players.length; i++) {
+            if (!players[i].getName().equals(current.getName())) {
+                players[i].getAccount().withdraw(1);
             }
 
-            else with.getAccount().deposit(1 * in.length -1);
+            else current.getAccount().deposit(1 * players.length -1);
         }
     }
 }

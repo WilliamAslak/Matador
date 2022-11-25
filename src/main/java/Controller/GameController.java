@@ -20,6 +20,7 @@ public class GameController {
     public void startGame() {
         initBoard();
         initPlayers();
+        initChanceDeck();
     }
 
     private void initBoard() {
@@ -54,6 +55,10 @@ public class GameController {
 
     }
 
+    private void initChanceDeck() {
+        game.initChanceDeck();
+    }
+
 
     public void playTurn() {
         boolean isGameOver = false;
@@ -63,6 +68,7 @@ public class GameController {
             while (playerNumber < playerCount) {
 
                 game.setCurrentPlayer(playerNumber);
+                gui.setCurrentPlayer(playerNumber);
 
                 game.newTurn();
 
@@ -72,21 +78,46 @@ public class GameController {
                 game.move();
                 gui.showDie(game.getDiceValue());
                 int newPos = game.getCurrentPlayer().getPosition();
-                gui.move(currentPos, newPos, playerNumber);
-                gui.action(game.getMessage(), game.getOption());
+                gui.move(currentPos, newPos);
+
+                if(game.hasPassedStart()) {
+                    gui.action(game.getMessage(), game.getOption());
+                }
+                currentPos = newPos;
 
                 game.fieldAction();
                 gui.action(game.getMessage(), game.getOption());
+
+
+                if(game.hasLandedOnChance()) {
+                    gui.action(game.getMessage(), game.getOption());
+
+                    if (game.isChanceMove()) {
+                        game.checkPassedStart(game.getCurrentPlayer().getPosition());
+                        newPos = game.getCurrentPlayer().getPosition();
+                        gui.action(game.getMessage(), game.getOption());
+                        gui.move(currentPos, newPos);
+                    }
+
+                    if(game.isChanceMoneyFromOthers()) {
+                        for (int i = 0; i < game.getPlayers().length ; i++) {
+                            int newBalance = game.getPlayers()[i].getAccount().getWallet();
+                            gui.updateBalance(i, newBalance);
+                        }
+                    }
+                }
 
                 if(game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
                     gui.updateBalance(game.getPaidPlayerNumber(), newBalance);
                 }
 
+
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
-                if (currentBalance != gui.getPlayer(playerNumber).getBalance()) {
+                if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
+
 
                 if(game.checkIfPlayerLost()) {
                     isGameOver = true;

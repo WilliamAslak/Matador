@@ -1,15 +1,11 @@
 package spil;
 
 import Fields.*;
-import gui_fields.GUI_Field;
-import gui_main.GUI;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GameBoard {
     private Field[] fields;
-    private GUI_Field[] fieldsGUI = new GUI_Field[24];
 
     public GameBoard() {
         initFields();
@@ -45,16 +41,9 @@ public class GameBoard {
 
     }
 
-    public Field getField(int pos) {
-        return fields[pos];
-    }
-
     public Field[] getFields() {
         return fields;
     }
 
-    public GUI_Field[] getFieldsGUI() {
-        return fieldsGUI;
-    }
 
 }

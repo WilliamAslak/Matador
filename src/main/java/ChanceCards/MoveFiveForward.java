@@ -8,7 +8,7 @@ public class MoveFiveForward extends ChanceCard {
         super(description);
     }
 
-    public void process(Player[] in, Player with){
-        with.setPosition(with.getPosition()+5);
+    public void process(Player[] players, Player current){
+        current.setPosition(current.getPosition()+5);
     }
 }

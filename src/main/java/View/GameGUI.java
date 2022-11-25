@@ -12,6 +12,7 @@ public class GameGUI {
     private GUI gui;
     private ArrayList<GUI_Player> players = new ArrayList<>();
     private ArrayList<GUI_Car> cars = new ArrayList<>();
+    private GUI_Player currentPlayer;
 
     public void initBoard(GUI_Field[] fieldsGUI) {
         gui = new GUI(fieldsGUI);
@@ -43,6 +44,10 @@ public class GameGUI {
         cars.add(new GUI_Car(Color.GREEN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL));
     }
 
+    public void setCurrentPlayer(int playerNumber) {
+        currentPlayer = players.get(playerNumber);
+    }
+
     public void test(String valg) {
 
     }
@@ -51,13 +56,13 @@ public class GameGUI {
         players.get(playerNumber).setBalance(newBalance);
     }
 
-    public GUI_Player getPlayer(int playerNumber) {
-        return players.get(playerNumber);
+    public GUI_Player getPlayer() {
+        return currentPlayer;
     }
 
-    public void move(int currentPos, int newPos, int playerNumber) {
-        gui.getFields()[currentPos].setCar(players.get(playerNumber), false);
-        gui.getFields()[newPos].setCar(players.get(playerNumber), true);
+    public void move(int currentPos, int newPos) {
+        gui.getFields()[currentPos].setCar(currentPlayer, false);
+        gui.getFields()[newPos].setCar(currentPlayer, true);
 
     }
 

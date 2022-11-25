@@ -8,8 +8,9 @@ public class MoveToStart extends ChanceCard {
         super(description);
     }
 
-    public void process(Player[] in, Player with){
-        with.setPosition(0);
-        with.getAccount().deposit(2);
+    public void process(Player[] players, Player current){
+        if (current.getPosition() == 0) return;
+        current.setPosition(0);
+        current.getAccount().deposit(2);
     }
 }

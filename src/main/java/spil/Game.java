@@ -5,11 +5,16 @@ import Fields.*;
 
 public class Game {
     private GameBoard gameBoard;
+    private ChanceDeck chanceDeck;
     private Player[] players;
     private Player currentPlayer;
     private Player paidPlayer = null;
     private int paidPlayerNumber;
     private Dice dice;
+    private boolean landedOnChance = false;
+    private boolean chanceMove = false;
+    private boolean chanceMoneyFromOthers = false;
+    private boolean passedStart = false;
     private String message;
     private String option;
 
@@ -20,8 +25,10 @@ public class Game {
 
     public void initBoard() {
         gameBoard = new GameBoard();
-        gameBoard.initFields();
+    }
 
+    public void initChanceDeck() {
+        chanceDeck = new ChanceDeck();
     }
 
     public void initPlayers(String[] playerNames) {
@@ -36,6 +43,11 @@ public class Game {
     }
 
     public void newTurn() {
+        landedOnChance = false;
+        chanceMove = false;
+        chanceMoneyFromOthers = false;
+        passedStart = false;
+        paidPlayer = null;
         message = "" + currentPlayer.getName() + "'s tur";
         option = "Kast terning";
     }
@@ -104,6 +116,7 @@ public class Game {
 
             case "chance":
                 option = "Tag chance kort";
+                landedOnChance = true;
                 takeChance();
                 break;
 
@@ -112,25 +125,17 @@ public class Game {
         }
     }
 
+    //birthday = opdatere ikke de andre
+    //spist for meget virker
+    //fem felter frem virker men opdatere ikke
+    //start virker men opdatere ikke
+
     public void move() {
         dice.roll();
         int diceValue = dice.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
         int newPosition = currentPosition + diceValue;
-
-        boolean passedStart = newPosition >= 24;
-
-        if (passedStart) {
-            currentPlayer.setPosition(newPosition - 24);
-            currentPlayer.getAccount().deposit(2);
-            message = "Du passerede start. Modtag 2M";
-            option = "OK";
-        } else {
-            currentPlayer.setPosition(newPosition);
-            message = "";
-            option = "";
-        }
-
+        checkPassedStart(newPosition);
     }
 
     private void pay(Player player, Integer position) {
@@ -138,11 +143,14 @@ public class Game {
         currentPlayer.getAccount().withdraw(amount);
         player.getAccount().deposit(amount);
         paidPlayer = player;
-
     }
 
     public Player getPaidPlayer() {
         return paidPlayer;
+    }
+
+    public boolean hasPassedStart() {
+        return passedStart;
     }
 
     public int getPaidPlayerNumber() {
@@ -161,40 +169,48 @@ public class Game {
     }
 
     private void takeChance() {
+        ChanceCard chanceCard = chanceDeck.drawCard();
+        chanceCard.process(players, currentPlayer);
+        message = chanceCard.getDescription();
+        option = "ok";
 
-        //TODO CREATE LIST OF CHANCE CARDS.
-        // INITIALIZE IT (in a method e.g initCards)
-        // SHUFFLE IT. (also in the method)
-        // TAKE FIRST CARD (REMOVE FROM LIST).
-        // PROCESS IT (GET A STRING - USE IN SWITCH CASE - DO LOGIC IN THIS CLASS)
-        // WHEN FINISHED PUT THE CARD AT THE END OF THE LIST
-        // COPY PASTE GAMEBOARD
-        int a = (int) (Math.random() * (3+1));
-        switch (a){
-            case 0:
-                //kald på kortet
-                ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
-                birthday.process(players, currentPlayer);
-                break;
+        String cardName = chanceCard.getClass().getName();
+        System.out.println(cardName);
+        if (cardName.equals("ChanceCards.MoveToStart")) chanceMove = true;
+        if (cardName.equals("ChanceCards.MoveFiveForward")) {
+            chanceMove = true;
+        }
+        if (cardName.equals("ChanceCards.Birthday")) chanceMoneyFromOthers = true;
 
-            case 1:
-                ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
-                moveFiveForward.process(players, currentPlayer);
-                break;
+    }
 
-            case 2:
-                ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
-                movetostart.process( players,currentPlayer);
+    public void checkPassedStart(int newPosition) {
 
-                break;
-
-            case 3:
-                ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
-                eatentoomuch.process(players, currentPlayer);
-                break;
-
+        if (newPosition >= 24) {
+            currentPlayer.setPosition(newPosition - 24);
+            currentPlayer.getAccount().deposit(2);
+            message = "Du passerede start. Modtag 2M";
+            option = "OK";
+            passedStart = true;
+        } else {
+            currentPlayer.setPosition(newPosition);
+            message = "";
+            option = "";
         }
     }
+
+    public boolean hasLandedOnChance() {
+        return landedOnChance;
+    }
+
+    public boolean isChanceMove() {
+        return chanceMove;
+    }
+
+    public boolean isChanceMoneyFromOthers() {
+        return chanceMoneyFromOthers;
+    }
+
     public int getDiceValue() {
         return dice.getFaceValue();
     }
@@ -202,8 +218,6 @@ public class Game {
     public boolean checkIfPlayerLost() {
         return currentPlayer.getAccount().getIsEmpty();
     }
-
-
 
 }
 /*
