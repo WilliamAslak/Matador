@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="CDIO2" target="19" />
-      <module name="G26_del2" target="19" />
+      <module name="G26_del2" target="18" />
     </bytecodeTargetLevel>
   </component>
 </project>
