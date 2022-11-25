@@ -148,7 +148,6 @@ public class Game {
         option = "ok";
 
         String cardName = chanceCard.getClass().getName();
-        System.out.println(cardName);
         if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
         if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
             chanceMove = true;
