@@ -1,10 +1,8 @@
 package Controller;
 
-import Fields.Field;
-import gui_fields.GUI_Car;
+import Model.Fields.Field;
 import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
-import spil.Game;
+import Model.Game;
 import View.GameGUI;
 
 public class GameController {
@@ -29,7 +27,7 @@ public class GameController {
 
         GUI_Field[] fieldsGUI = new GUI_Field[24];
         for (int i = 0; i < fields.length ; i++) {
-            fieldsGUI[i] = fields[i].toGui();
+            fieldsGUI[i] = fields[i].   toGui();
         }
         gui.initBoard(fieldsGUI);
     }
@@ -70,6 +68,18 @@ public class GameController {
                 game.setCurrentPlayer(playerNumber);
                 gui.setCurrentPlayer(playerNumber);
 
+                if(game.checkIfPlayerInJail()) {
+                    gui.action(game.getMessage(), game.getOption());
+                    gui.updateBalance(playerNumber, game.getCurrentPlayer().getAccount().getWallet() );
+                }
+
+                //LOSE
+                if(game.checkIfPlayerLost()) {
+                    isGameOver = true;
+                    gui.showEndGame(game.getCurrentPlayer().getName());
+                    break;
+                }
+
                 game.newTurn();
 
                 gui.action(game.getMessage(), game.getOption());
@@ -80,15 +90,21 @@ public class GameController {
                 int newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos, newPos);
 
+                //Check om passeret start
                 if(game.hasPassedStart()) {
                     gui.action(game.getMessage(), game.getOption());
                 }
                 currentPos = newPos;
 
+                //Felt handling
                 game.fieldAction();
                 gui.action(game.getMessage(), game.getOption());
 
+                //FÆNGSEL
+                newPos = game.getCurrentPlayer().getPosition();
+                gui.move(currentPos,newPos);
 
+                //CHANCE
                 if(game.hasLandedOnChance()) {
                     gui.action(game.getMessage(), game.getOption());
 
@@ -107,22 +123,16 @@ public class GameController {
                     }
                 }
 
+                //BETAL
                 if(game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
                     gui.updateBalance(game.getPaidPlayerNumber(), newBalance);
                 }
 
-
+                //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
-                }
-
-
-                if(game.checkIfPlayerLost()) {
-                    isGameOver = true;
-                    gui.showEndGame(game.getCurrentPlayer().getName());
-                    break;
                 }
 
                 playerNumber++;
