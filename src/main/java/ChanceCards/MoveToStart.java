@@ -1,6 +1,5 @@
 package ChanceCards;
 
-import spil.Game;
 import spil.Player;
 
 public class MoveToStart extends ChanceCard {
@@ -9,7 +8,8 @@ public class MoveToStart extends ChanceCard {
         super(description);
     }
 
-    public void process(Game in, Player with){
-
+    public void process(Player[] in, Player with){
+        with.setPosition(0);
+        with.getAccount().deposit(2);
     }
 }

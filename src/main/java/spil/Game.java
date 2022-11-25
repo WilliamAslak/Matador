@@ -1,33 +1,255 @@
 package spil;
 
-import ChanceCards.ChanceCard;
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
-import gui_main.GUI;
-
-import java.awt.*;
-import java.util.Scanner;
+import ChanceCards.*;
+import Fields.*;
 
 public class Game {
-    public static void main(String[] args) {
-        run();
+    private GameBoard gameBoard;
+    private Player[] players;
+    private Player currentPlayer;
+    private Player paidPlayer = null;
+    private int paidPlayerNumber;
+    private Dice dice;
+    private String message;
+    private String option;
+
+
+    public Game() {
+        dice = new Dice();
     }
 
+    public void initBoard() {
+        gameBoard = new GameBoard();
+        gameBoard.initFields();
+
+    }
+
+    public void initPlayers(String[] playerNames) {
+        int[] startMoney = {20, 18, 16};
+        int playerCount = playerNames.length;
+        players = new Player[playerCount];
+
+        for (int i = 0; i < playerCount; i++) {
+            players[i] = new Player(playerNames[i], startMoney[playerCount - 2]);
+        }
+
+    }
+
+    public void newTurn() {
+        message = "" + currentPlayer.getName() + "'s tur";
+        option = "Kast terning";
+    }
+    public void setCurrentPlayer(int playerNumber) {
+        currentPlayer = players[playerNumber];
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+    public Field[] getFields() {
+        return gameBoard.getFields();
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getOption() {
+        return option;
+    }
+
+    public void playTurn() {
+        move();
+        fieldAction();
+    }
+
+
+    public void fieldAction() {
+
+        Integer position = currentPlayer.getPosition();
+
+        message = "Du landede på " + gameBoard.getFields()[position].getName();
+        option = "Ok";
+
+        switch (gameBoard.getFields()[position].action()) {
+
+            case "ejet":
+                int i = 0;
+
+
+                while(i < players.length) {
+                    if (players[i].getOwnedPropertiesPositions().contains(position)) break;
+                    i++;
+                }
+
+                if (!players[i].getName().equals(currentPlayer.getName())) {
+                    option = "Betal";
+                    paidPlayerNumber = i;
+                    pay(players[i], position);
+                }
+                break;
+
+            case "ledig":
+                option = "Køb";
+                purchase(position);
+                break;
+
+            case "fængsel":
+                option = "Gå i fængsel";
+                break;
+
+            case "chance":
+                option = "Tag chance kort";
+                takeChance();
+                break;
+
+            default:
+
+        }
+    }
+
+    public void move() {
+        dice.roll();
+        int diceValue = dice.getFaceValue();
+        int currentPosition = currentPlayer.getPosition();
+        int newPosition = currentPosition + diceValue;
+
+        boolean passedStart = newPosition >= 24;
+
+        if (passedStart) {
+            currentPlayer.setPosition(newPosition - 24);
+            currentPlayer.getAccount().deposit(2);
+            message = "Du passerede start. Modtag 2M";
+            option = "OK";
+        } else {
+            currentPlayer.setPosition(newPosition);
+            message = "";
+            option = "";
+        }
+
+    }
+
+    private void pay(Player player, Integer position) {
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+        currentPlayer.getAccount().withdraw(amount);
+        player.getAccount().deposit(amount);
+        paidPlayer = player;
+
+    }
+
+    public Player getPaidPlayer() {
+        return paidPlayer;
+    }
+
+    public int getPaidPlayerNumber() {
+        return paidPlayerNumber;
+    }
+
+    private void purchase(Integer position) {
+
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+
+        currentPlayer.addPropertyPosition(currentPlayer.getPosition());
+
+        currentPlayer.getAccount().withdraw(amount);
+
+        ((Street) gameBoard.getFields()[position]).setIsOwned(true);
+    }
+
+    private void takeChance() {
+
+        //TODO CREATE LIST OF CHANCE CARDS.
+        // INITIALIZE IT (in a method e.g initCards)
+        // SHUFFLE IT. (also in the method)
+        // TAKE FIRST CARD (REMOVE FROM LIST).
+        // PROCESS IT (GET A STRING - USE IN SWITCH CASE - DO LOGIC IN THIS CLASS)
+        // WHEN FINISHED PUT THE CARD AT THE END OF THE LIST
+        // COPY PASTE GAMEBOARD
+        int a = (int) (Math.random() * (3+1));
+        switch (a){
+            case 0:
+                //kald på kortet
+                ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
+                birthday.process(players, currentPlayer);
+                break;
+
+            case 1:
+                ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
+                moveFiveForward.process(players, currentPlayer);
+                break;
+
+            case 2:
+                ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
+                movetostart.process( players,currentPlayer);
+
+                break;
+
+            case 3:
+                ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
+                eatentoomuch.process(players, currentPlayer);
+                break;
+
+        }
+    }
+    public int getDiceValue() {
+        return dice.getFaceValue();
+    }
+
+    public boolean checkIfPlayerLost() {
+        return currentPlayer.getAccount().getIsEmpty();
+    }
+
+
+
+}
+/*
+    public static void main(String[] args) {
+        GameBoard gameBoard = new GameBoard();
+
+        //Creating all the GUI
+        GUI_Field[] fields = gameBoard.getFieldsGUI();
+        GUI gui = new GUI(fields);
+        int playerCount = gui.getUserInteger("Hvor mange spillere?",2,4);
+
+        Player[] players = new Player[playerCount];
+        for(int i=0; i<playerCount; i++)
+            players[i] = new Player();
+
+        GUI_Car[] cars = new GUI_Car[4];
+        cars[0] = new GUI_Car(Color.WHITE, Color.BLACK, GUI_Car.Type.UFO, GUI_Car.Pattern.CHECKERED);
+        cars[1] = new GUI_Car(Color.CYAN, Color.PINK, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.DOTTED);
+        cars[2] = new GUI_Car(Color.BLUE, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.ZEBRA);
+        cars[3] = new GUI_Car(Color.GREEN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+
+        GUI_Player[] gui_players = new GUI_Player[playerCount];
+        for(int i = 0; i < playerCount; i++) {
+            //Creating the players
+            gui_players[i] = new GUI_Player("P" + (i+1), 0, cars[i]);
+            //Adding players to the board
+            gui.addPlayer(gui_players[i]);
+            gui_players[i].setBalance(players[i].getAccount().getWallet());
+        }
+
+
+        //run();
+    }
+
+
+    /*
     public static void run(){
+
+
         Dice d1 = new Dice();
         Dice d2 = new Dice();
         Rafflecup rc = new Rafflecup();
 
         //Finding out how many players are playing.
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the amount of players");
-        int playerCount = scan.nextInt();
-        while(playerCount>4 || playerCount<2){
-            System.out.println("Value must be between 2 and 4, try again!");
-            playerCount = scan.nextInt();
-        }
+
         Player[] players = new Player[playerCount];
         for(int i=0; i<playerCount; i++)
             players[i] = new Player();
@@ -49,14 +271,6 @@ public class Game {
         };
         int[] fieldValues = {0,250, -100, 100, -20, 180, 0, -70, 60, -80, -50, 650};
 
-        //Creating all the GUI
-        GUI_Field[] fields = new GUI_Field[12];
-        for (int i = 0; i < 12; i++) {
-            fields[i] = new GUI_Street();
-            fields[i].setTitle(String.valueOf(fieldInfo[i][0]));
-            fields[i].setSubText(String.valueOf(fieldInfo[i][1]));
-        }
-        GUI gui = new GUI(fields);
 
         GUI_Car[] cars = new GUI_Car[4];
         cars[0] = new GUI_Car(Color.WHITE, Color.BLACK, GUI_Car.Type.UFO, GUI_Car.Pattern.CHECKERED);
@@ -84,12 +298,12 @@ public class Game {
             fields[0].setCar(gui_players[i], true);
         }
 
+        boolean cont = true;
+        while(cont) {
 
-        while(true) {
 
-            boolean stop = false;
             for(int i = 0; i < playerCount; i++) {
-                if (playTurn(rc, d1, d2, players[i], fieldInfo, fieldValues, scan)) {stop=true; break;}
+                if (playTurn(rc, d1, d2, players[i], fieldInfo, fieldValues, scan)) {cont=false; break;}
                 //gui
                 //remove car from old space
                 fields[players[i].getPlayerPosition()].setCar(gui_players[i], false);
@@ -103,7 +317,6 @@ public class Game {
                 //updating gui wallet
                 gui_players[i].setBalance(players[i].getAccount().getWallet());
             }
-            if(stop) break;
 
         }
 
@@ -162,5 +375,6 @@ public class Game {
         }
         return false;
     }
+*/
 
-}
+

@@ -1,29 +1,54 @@
 package spil;
 
+import Fields.Street;
+
+import java.util.ArrayList;
+
 public class Player {
-
+    private String name;
     private Account acc;
-    private int playerNumber;
-    private static int nextPlayerNumber = 1;
-    private int playerPosition= 0;
+    private boolean isInJail = false;
+    private int playerPosition = 0;
+    private ArrayList<Integer> ownedPropertiesPositions = new ArrayList<>();
+    private boolean hasLost = false;
 
-    public Player(){
-        this.playerPosition=playerPosition;
-        this.acc = new Account();
-        this.playerNumber = Player.nextPlayerNumber;
-        Player.nextPlayerNumber++;
+    public Player(String name, int startMoney){
+        this.name = name;
+        this.acc = new Account(startMoney);
+
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
+    public String getName() {
+        return name;
     }
 
-    public int getPlayerPosition(){
+    public void addPropertyPosition(Integer position) {ownedPropertiesPositions.add(position);
+    }
+
+    public ArrayList<Integer> getOwnedPropertiesPositions() {
+        return ownedPropertiesPositions;
+    }
+    public int getPosition(){
         return playerPosition;
     }
-    public void setPlayerPosition(int x ){
+    public void setPosition(int x ){
         playerPosition=x;
     }
+
+    public boolean getHasLost() {
+        return hasLost;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
+    public void setInJail(Boolean inJail) {
+        isInJail = inJail;
+    }
+
+    public boolean isInJail() {return isInJail;}
+
     public Account getAccount(){
         return acc;
     }

@@ -1,11 +1,13 @@
 package spil;
 
 public class Account {
+    private int wallet;
+    private boolean isEmpty;
 
-    public Account(){
-
+    public Account(int wallet){
+        this.wallet = wallet;
+        isEmpty = false;
     }
-    private int wallet = 1000;
 
     public int getWallet() {
         return wallet;
@@ -25,14 +27,18 @@ public class Account {
         return "Your new balance is: " + wallet;
     }
 
-    public String withdraw(int x){
+    public void withdraw(int x){
         if (wallet - x < 0) {
-            return "You cannot withdraw this amount";
+            isEmpty = true;
+            wallet = 0;
         }
         else {
-            wallet += x;
-            return "Your new balance is: " + wallet;
+            wallet -= x;
         }
+    }
+
+    public boolean getIsEmpty() {
+        return isEmpty;
     }
 
     public String toString(){
