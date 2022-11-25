@@ -1,17 +1,16 @@
-package Fields;
+package Model.Fields;
 
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Start;
-import spil.Player;
 
 import java.awt.*;
 
 public class Start extends Field {
-    int recieveMoney;
+    int receiveMoney;
 
     public Start(int recieveMoney){
         super ("START");
-        this.recieveMoney=recieveMoney;
+        this.receiveMoney=recieveMoney;
     }
 
     @Override

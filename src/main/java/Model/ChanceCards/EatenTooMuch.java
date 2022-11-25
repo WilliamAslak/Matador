@@ -1,6 +1,6 @@
-package ChanceCards;
+package Model.ChanceCards;
 
-import spil.Player;
+import Model.Player;
 
 public class EatenTooMuch extends ChanceCard {
 

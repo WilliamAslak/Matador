@@ -1,8 +1,7 @@
-package Fields;
+package Model.Fields;
 
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Refuge;
-import spil.Player;
 
 import java.awt.*;
 

@@ -1,6 +1,6 @@
-package spil;
+package Model;
 
-import Fields.*;
+import Model.Fields.*;
 
 import java.awt.*;
 

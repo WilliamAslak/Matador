@@ -1,8 +1,5 @@
 package test;
 
-import spil.Account;
-import spil.Player;
-
 //import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {

@@ -1,7 +1,6 @@
-package ChanceCards;
+package Model.ChanceCards;
 
-import spil.Game;
-import spil.Player;
+import Model.Player;
 
 public class Birthday extends ChanceCard {
 

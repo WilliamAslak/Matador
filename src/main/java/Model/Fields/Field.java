@@ -1,7 +1,6 @@
-package Fields;
+package Model.Fields;
 
 import gui_fields.GUI_Field;
-import spil.Player;
 
 public abstract class Field {
 

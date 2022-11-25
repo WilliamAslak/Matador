@@ -1,6 +1,6 @@
-package spil;
+package Model;
 
-import ChanceCards.*;
+import Model.ChanceCards.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
