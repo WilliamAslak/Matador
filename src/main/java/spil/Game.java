@@ -42,9 +42,20 @@ public class Game {
 
     }
 
+    public boolean checkIfPlayerInJail() {
+        if (currentPlayer.isInJail()) {
+            newReleased();
+            currentPlayer.getAccount().withdraw(1);
+            currentPlayer.setInJail(false);
+            return true;
+        }
+        return false;
+    }
+
+
     public void newReleased() {
-        message = "" + currentPlayer.getName() + " Springer turen over, men bliver løsladt!";
-        option = "OK";
+        message = "" + currentPlayer.getName() + " er blevet løsladt!";
+        option = "Betal 1M";
     }
     public void newTurn() {
         landedOnChance = false;
@@ -139,7 +150,7 @@ public class Game {
         dice.roll();
         int diceValue = dice.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
-        int newPosition = currentPosition + diceValue;
+        int newPosition = currentPosition + 18;
         checkPassedStart(newPosition);
     }
 

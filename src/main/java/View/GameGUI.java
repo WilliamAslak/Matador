@@ -48,9 +48,6 @@ public class GameGUI {
         currentPlayer = players.get(playerNumber);
     }
 
-    public void test(String valg) {
-
-    }
 
     public void updateBalance(int playerNumber, int newBalance) {
         players.get(playerNumber).setBalance(newBalance);
