@@ -11,7 +11,7 @@ public class GameBoard {
         initFields();
     }
 
-    public void initFields() {
+    private void initFields() {
         fields = new Field[]{
                 new Start(2),
                 new Street("BURGERBAREN", new Color(153,102,0), 1),
