@@ -115,7 +115,6 @@ public class Game {
             case "chance":
                 option = "Tag chance kort";
                 takeChance();
-
                 break;
 
             default:
@@ -183,28 +182,23 @@ public class Game {
         int a = (int) (Math.random() * (3+1));
         switch (a){
             case 0:
-                //kald på kortet
                 ChanceCards.Birthday birthday = new Birthday("Fødselsdag");
                 birthday.process(players, currentPlayer);
-                message = "Du landede på Chance og trak Fødselsdag, alle spillere giver dig 1M";
                 break;
 
             case 1:
                 ChanceCards.MoveFiveForward moveFiveForward = new MoveFiveForward(("Ryk 5 felter frem"));
                 moveFiveForward.process(players, currentPlayer);
-                message = "Du landede på Chance og trak MoveFiveForward, du rykker 5 felter frem";
                 break;
 
             case 2:
                 ChanceCards.MoveToStart movetostart = new MoveToStart("Ryk til start");
                 movetostart.process( players,currentPlayer);
-                message = "Du landede på Chance og trak MoveToStart, du rykker til start og får 2M";
                 break;
 
             case 3:
                 ChanceCards.EatenTooMuch eatentoomuch = new EatenTooMuch("nice");
                 eatentoomuch.process(players, currentPlayer);
-                message = "Du landede på Chance og trak EatenTooMuch, du betaler 2M";
                 break;
 
         }

@@ -14,8 +14,7 @@ public class Birthday extends ChanceCard {
             if (!in[i].getName().equals(with.getName())) {
                 in[i].getAccount().withdraw(1);
             }
-
-            else with.getAccount().deposit(1 * in.length -1);
+            else with.getAccount().deposit(in.length -1);
         }
     }
 }

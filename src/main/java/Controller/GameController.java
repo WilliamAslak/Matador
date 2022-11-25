@@ -95,6 +95,7 @@ public class GameController {
                 gui.action(game.getMessage(), game.getOption());
                 gui.move(currentPos, newPos, playerNumber);
 
+
                 if(game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
                     gui.updateBalance(game.getPaidPlayerNumber(), newBalance);
