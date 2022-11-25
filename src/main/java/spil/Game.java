@@ -42,6 +42,10 @@ public class Game {
 
     }
 
+    public void newReleased() {
+        message = "" + currentPlayer.getName() + " Springer turen over, men bliver løsladt!";
+        option = "OK";
+    }
     public void newTurn() {
         landedOnChance = false;
         chanceMove = false;
@@ -72,6 +76,10 @@ public class Game {
 
     public String getOption() {
         return option;
+    }
+
+    public void release(Player p){
+        p.setInJail(false);
     }
 
     public void playTurn() {
@@ -111,7 +119,9 @@ public class Game {
                 break;
 
             case "fængsel":
-                option = "Gå i fængsel";
+                option = "Du bliver sparket i fængsel";
+                currentPlayer.setInJail(true);
+                currentPlayer.setPosition(position-12);
                 break;
 
             case "chance":
@@ -124,11 +134,6 @@ public class Game {
 
         }
     }
-
-    //birthday = opdatere ikke de andre
-    //spist for meget virker
-    //fem felter frem virker men opdatere ikke
-    //start virker men opdatere ikke
 
     public void move() {
         dice.roll();
@@ -143,6 +148,7 @@ public class Game {
         currentPlayer.getAccount().withdraw(amount);
         player.getAccount().deposit(amount);
         paidPlayer = player;
+
     }
 
     public Player getPaidPlayer() {
@@ -218,6 +224,8 @@ public class Game {
     public boolean checkIfPlayerLost() {
         return currentPlayer.getAccount().getIsEmpty();
     }
+
+
 
 }
 /*
