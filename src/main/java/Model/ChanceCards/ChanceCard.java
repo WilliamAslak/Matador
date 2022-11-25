@@ -1,6 +1,6 @@
-package ChanceCards;
+package Model.ChanceCards;
 
-import spil.Player;
+import Model.Player;
 
 abstract public class ChanceCard {
     private String description;

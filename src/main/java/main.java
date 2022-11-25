@@ -1,6 +1,6 @@
 import Controller.GameController;
 import View.GameGUI;
-import spil.Game;
+import Model.Game;
 
 public class main {
     public static void main(String[] args) {

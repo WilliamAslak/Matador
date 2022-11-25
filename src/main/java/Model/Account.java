@@ -1,4 +1,4 @@
-package spil;
+package Model;
 
 public class Account {
     private int wallet;
@@ -11,15 +11,6 @@ public class Account {
 
     public int getWallet() {
         return wallet;
-    }
-
-    public void setWallet(int newWallet) {
-        if (newWallet < 0) {
-            System.out.println("Wallet cannot be less than 0");
-        }
-        else {
-            wallet = newWallet;
-        }
     }
 
     public String deposit(int x){

@@ -1,4 +1,4 @@
-package Fields;
+package Model.Fields;
 
 import gui_fields.GUI_Chance;
 import gui_fields.GUI_Field;
