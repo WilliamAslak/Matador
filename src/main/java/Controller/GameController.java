@@ -28,7 +28,7 @@ public class GameController {
 
         GUI_Field[] fieldsGUI = new GUI_Field[24];
         for (int i = 0; i < fields.length ; i++) {
-            fieldsGUI[i] = fields[i].toGui();
+            fieldsGUI[i] = fields[i].   toGui();
         }
         gui.initBoard(fieldsGUI);
     }
@@ -64,6 +64,20 @@ public class GameController {
 
                 game.setCurrentPlayer(playerNumber);
 
+                //fængsel kode
+                if (game.getCurrentPlayer().isInJail()) {
+                    game.release(game.getCurrentPlayer());
+                    game.newReleased();
+                    gui.action(game.getMessage(), game.getOption());
+                    if (playerNumber == playerCount-1){
+                        playerNumber = 0;
+                    }
+                    else {
+                        playerNumber++;
+                    }
+                    game.setCurrentPlayer(playerNumber);
+                }
+
                 game.newTurn();
 
                 gui.action(game.getMessage(), game.getOption());
@@ -75,8 +89,11 @@ public class GameController {
                 gui.move(currentPos, newPos, playerNumber);
                 gui.action(game.getMessage(), game.getOption());
 
+                currentPos = game.getCurrentPlayer().getPosition();
                 game.fieldAction();
+                newPos = game.getCurrentPlayer().getPosition();
                 gui.action(game.getMessage(), game.getOption());
+                gui.move(currentPos, newPos, playerNumber);
 
                 if(game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();

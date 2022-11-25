@@ -35,6 +35,10 @@ public class Game {
 
     }
 
+    public void newReleased() {
+        message = "" + currentPlayer.getName() + " Springer turen over, men bliver løsladt!";
+        option = "OK";
+    }
     public void newTurn() {
         message = "" + currentPlayer.getName() + "'s tur";
         option = "Kast terning";
@@ -60,6 +64,10 @@ public class Game {
 
     public String getOption() {
         return option;
+    }
+
+    public void release(Player p){
+        p.setInJail(false);
     }
 
     public void playTurn() {
@@ -99,7 +107,9 @@ public class Game {
                 break;
 
             case "fængsel":
-                option = "Gå i fængsel";
+                option = "Du bliver sparket i fængsel";
+                currentPlayer.setInJail(true);
+                currentPlayer.setPosition(position-12);
                 break;
 
             case "chance":
