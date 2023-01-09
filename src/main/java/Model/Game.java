@@ -33,12 +33,12 @@ public class Game {
     }
 
     public void initPlayers(String[] playerNames) {
-        int[] startMoney = {20, 18, 16, 14, 12};
+        int startMoney = 30000;
         int playerCount = playerNames.length;
         players = new Player[playerCount];
 
         for (int i = 0; i < playerCount; i++) {
-            players[i] = new Player(playerNames[i], startMoney[playerCount - 2]);
+            players[i] = new Player(playerNames[i], startMoney);
         }
         // Bruges til accept test K1
         for (int i = 0; i < playerCount; i++) {
@@ -168,8 +168,8 @@ public class Game {
 
         if (newPosition >= 24) {
             currentPlayer.setPosition(newPosition - 24);
-            currentPlayer.getAccount().deposit(2);
-            message = "Du passerede start. Modtag 2M";
+            currentPlayer.getAccount().deposit(4000);
+            message = "Du passerede start. Modtag 4000";
             option = "OK";
             passedStart = true;
         } else {
