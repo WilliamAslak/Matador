@@ -19,7 +19,7 @@ public class GameGUI {
     }
 
     public int getNumberOfPlayers() {
-       return gui.getUserInteger("Antal spillere?",2,4);
+       return gui.getUserInteger("Antal spillere?",3,6);
     }
 
     public String getYoungestPlayerName() {
@@ -42,6 +42,8 @@ public class GameGUI {
         cars.add(new GUI_Car(Color.CYAN, Color.PINK, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.DOTTED));
         cars.add(new GUI_Car(Color.BLUE, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.ZEBRA));
         cars.add(new GUI_Car(Color.GREEN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL));
+        cars.add(new GUI_Car(Color.BLACK, Color.GREEN, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.HORIZONTAL_LINE));
+        cars.add(new GUI_Car(Color.CYAN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.DOTTED));
     }
 
     public void setCurrentPlayer(int playerNumber) {
