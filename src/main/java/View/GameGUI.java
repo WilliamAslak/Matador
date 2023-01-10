@@ -19,7 +19,7 @@ public class GameGUI {
     }
 
     public int getNumberOfPlayers() {
-       return gui.getUserInteger("Antal spillere?",3,6);
+       return gui.getUserInteger("Antal spillere? (mellem 3 og 6)",3,6);
     }
 
     public String getYoungestPlayerName() {
