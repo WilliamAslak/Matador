@@ -148,7 +148,7 @@ public class GameController {
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
-
+                if (game.getDiceValue1() != game.getDiceValue2())
                 playerNumber++;
             }
         }
