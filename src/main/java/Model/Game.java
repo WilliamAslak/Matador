@@ -44,12 +44,6 @@ public class Game {
         for (int i = 0; i < playerCount; i++) {
             players[i] = new Player(playerNames[i], startMoney);
         }
-        // Bruges til accept test K1
-        for (int i = 0; i < playerCount; i++) {
-            if (players[i].getName().contains("test")){
-                players[i].setPosition(0);
-            }
-        }
     }
 
     public boolean checkIfPlayerInJail() {
@@ -188,11 +182,10 @@ public class Game {
         if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
     }
     private void payTax(){
-        System.out.println("Hello?");
         if (currentPlayer.getPosition() == 4){
             System.out.println(currentPlayer.getAccount().getWallet());
             currentPlayer.getAccount().withdraw(4000);
-            message = "Hello?";
+            message = "Du betaler 4000 i skat";
             option = "Betal skat";
             System.out.println(currentPlayer.getAccount().getWallet());
         }
