@@ -128,6 +128,20 @@ public class GameController {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
                     gui.updateBalance(game.getPaidPlayerNumber(), newBalance);
                 }
+                //TAX
+                if(game.hasLandedOnTax()){
+                    gui.action(game.getMessage(), game.getOption());
+                    int newBalance;
+                    if (game.getCurrentPlayer().getPosition() == 4) {
+                        newBalance = game.getCurrentPlayer().getAccount().getWallet() - 4000;
+                        gui.updateBalance(playerNumber, newBalance);
+                    }
+                    else if (game.getCurrentPlayer().getPosition() == 38){
+                        newBalance = game.getCurrentPlayer().getAccount().getWallet() - 2000;
+                        gui.updateBalance(playerNumber, newBalance);
+                    }
+
+                }
 
                 //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();

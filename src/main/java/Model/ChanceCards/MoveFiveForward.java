@@ -9,8 +9,8 @@ public class MoveFiveForward extends ChanceCard {
     }
 
     public void process(Player[] players, Player current){
-        if (current.getPosition() == 20){
-            current.setPosition(1);
+        if (current.getPosition() + 5 >= 40) {
+            current.setPosition(current.getPosition() + 5 - 40);
             current.getAccount().deposit(4000);
         }
         else

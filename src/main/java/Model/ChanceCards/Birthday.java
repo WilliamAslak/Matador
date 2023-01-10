@@ -14,7 +14,7 @@ public class Birthday extends ChanceCard {
                 players[i].getAccount().withdraw(1000);
             }
 
-            else current.getAccount().deposit(1 * players.length -1000);
+            else current.getAccount().deposit(1000 * players.length -1);
         }
     }
 }
