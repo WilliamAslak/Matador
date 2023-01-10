@@ -100,7 +100,7 @@ public class GameController {
                 game.fieldAction();
                 gui.action(game.getMessage(), game.getOption());
 
-                //FÆNGSEL
+                //Så fængsel gui virker
                 newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos,newPos);
 

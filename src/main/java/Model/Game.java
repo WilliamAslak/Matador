@@ -33,7 +33,7 @@ public class Game {
     }
 
     public void initPlayers(String[] playerNames) {
-        int startMoney = 30000;
+        int startMoney = 3000000;
         int playerCount = playerNames.length;
         players = new Player[playerCount];
 
@@ -49,9 +49,9 @@ public class Game {
     }
 
     public boolean checkIfPlayerInJail() {
-        if (currentPlayer.isInJail()) {
+        if (currentPlayer.isInJail() && currentPlayer.getAccount().getWallet() > 1000) {
             newReleased();
-            currentPlayer.getAccount().withdraw(1);
+            currentPlayer.getAccount().withdraw(1000);
             currentPlayer.setInJail(false);
             return true;
         }
@@ -60,7 +60,7 @@ public class Game {
 
 
     public void newReleased() {
-        message = "" + currentPlayer.getName() + " er blevet løsladt!";
+        message = "" + currentPlayer.getName() + "har betalt 1000 og er blevet løsladt!";
         option = "Betal 1M";
     }
     public void newTurn() {
@@ -105,7 +105,8 @@ public class Game {
             case "fængsel":
                 option = "Du bliver sparket i fængsel";
                 currentPlayer.setInJail(true);
-                currentPlayer.setPosition(position-12);
+                currentPlayer.setPosition(10);
+
                 break;
 
             case "chance":
@@ -166,8 +167,8 @@ public class Game {
 
     public void checkPassedStart(int newPosition) {
 
-        if (newPosition >= 24) {
-            currentPlayer.setPosition(newPosition - 24);
+        if (newPosition >= 40) {
+            currentPlayer.setPosition(newPosition - 40);
             currentPlayer.getAccount().deposit(4000);
             message = "Du passerede start. Modtag 4000";
             option = "OK";

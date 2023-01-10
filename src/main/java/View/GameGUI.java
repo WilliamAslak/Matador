@@ -73,7 +73,7 @@ public class GameGUI {
     }
 
     public void showEndGame(String playerName){
-        gui.showMessage(playerName + "has lost. \n The game has ended");
+        gui.showMessage(playerName + " has lost. \n The game has ended");
         gui.close();
     }
 }
