@@ -11,7 +11,7 @@ public class Game {
     private Player currentPlayer;
     private Player paidPlayer = null;
     private int paidPlayerNumber;
-    private Dice dice;
+    private Dice dice1, dice2;
     private boolean landedOnChance = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyFromOthers = false;
@@ -21,7 +21,8 @@ public class Game {
 
 
     public Game() {
-        dice = new Dice();
+        dice1 = new Dice();
+        dice2 = new Dice();
     }
 
     public void initBoard() {
@@ -33,7 +34,7 @@ public class Game {
     }
 
     public void initPlayers(String[] playerNames) {
-        int startMoney = 3000000;
+        int startMoney = 30000;
         int playerCount = playerNames.length;
         players = new Player[playerCount];
 
@@ -60,7 +61,7 @@ public class Game {
 
 
     public void newReleased() {
-        message = "" + currentPlayer.getName() + "har betalt 1000 og er blevet løsladt!";
+        message = "" + currentPlayer.getName() + " har betalt 1000 og er blevet løsladt!";
         option = "Betal 1M";
     }
     public void newTurn() {
@@ -121,11 +122,13 @@ public class Game {
     }
 
     public void move() {
-        dice.roll();
-        int diceValue = dice.getFaceValue();
+        dice1.roll();
+        dice2.roll();
         if (currentPlayer.getName().contains("test")){
-            diceValue = 6;
+            dice1.setFaceValue(6);
+            dice2.setFaceValue(6);
         }
+        int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
         int newPosition = currentPosition + diceValue;
         checkPassedStart(newPosition);
@@ -192,8 +195,11 @@ public class Game {
         return chanceMoneyFromOthers;
     }
 
-    public int getDiceValue() {
-        return dice.getFaceValue();
+    public int getDiceValue1() {
+        return dice1.getFaceValue();
+    }
+    public int getDiceValue2() {
+        return dice2.getFaceValue();
     }
 
     public boolean checkIfPlayerLost() {

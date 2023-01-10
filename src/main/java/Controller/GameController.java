@@ -86,7 +86,7 @@ public class GameController {
 
                 int currentPos = game.getCurrentPlayer().getPosition();
                 game.move();
-                gui.showDie(game.getDiceValue());
+                gui.showDie(game.getDiceValue1(), game.getDiceValue2());
                 int newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos, newPos);
 

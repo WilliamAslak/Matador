@@ -68,8 +68,8 @@ public class GameGUI {
     public void action(String message, String button) {
         gui.getUserButtonPressed(message, button);
     }
-    public void showDie(int faceValue) {
-        gui.setDie(faceValue);
+    public void showDie(int faceValue1, int faceValue2) {
+        gui.setDice(faceValue1, faceValue2);
     }
 
     public void showEndGame(String playerName){
