@@ -8,6 +8,6 @@ public class EatenTooMuch extends ChanceCard {
         super(description);
     }
     public void process(Player[] players, Player current){
-        current.getAccount().withdraw(2);
+        current.getAccount().withdraw(2000);
     }
 }

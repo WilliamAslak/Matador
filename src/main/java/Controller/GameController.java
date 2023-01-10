@@ -25,7 +25,7 @@ public class GameController {
         game.initBoard();
         Field[] fields = game.getFields();
 
-        GUI_Field[] fieldsGUI = new GUI_Field[24];
+        GUI_Field[] fieldsGUI = new GUI_Field[40];
         for (int i = 0; i < fields.length ; i++) {
             fieldsGUI[i] = fields[i].   toGui();
         }

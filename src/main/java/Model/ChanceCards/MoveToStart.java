@@ -11,6 +11,6 @@ public class MoveToStart extends ChanceCard {
     public void process(Player[] players, Player current){
         if (current.getPosition() == 0) return;
         current.setPosition(0);
-        current.getAccount().deposit(2);
+        current.getAccount().deposit(4000);
     }
 }

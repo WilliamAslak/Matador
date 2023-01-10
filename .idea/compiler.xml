@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Matador" />
         <module name="G26_del2" />
-        <module name="CDIO2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CDIO2" target="19" />
       <module name="G26_del2" target="18" />
+      <module name="Matador" target="19" />
     </bytecodeTargetLevel>
   </component>
 </project>
