@@ -15,7 +15,7 @@ public class Start extends Field {
 
     @Override
     public GUI_Field toGui() {
-        return new GUI_Start(super.getName(),"Modtag 2M", "Modtag 2M", Color.red, Color.BLACK);
+        return new GUI_Start(super.getName(),"Modtag 4000", "Modtag 4000", Color.red, Color.BLACK);
     }
 
     @Override
