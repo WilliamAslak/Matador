@@ -4,6 +4,8 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
+import java.util.Objects;
+
 public class Game {
     private GameBoard gameBoard;
     private ChanceDeck chanceDeck;
@@ -160,23 +162,86 @@ public class Game {
         option = "ok";
 
         String cardName = chanceCard.getClass().getName();
-        if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeForward")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeBack")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.FullStopTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarInsurance")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarRepair")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarWash")) chanceMove =true;
-        if (cardName.equals("Model.ChanceCards.CustomsDuty")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.DentistBill")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.NewTires")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ParkingTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ReceiveDividend")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.WonTheLottery")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
-            chanceMove = true;
+
+        switch(chanceCard.getClass().getName()) {
+            case "MoveToStart":
+                cardName.equals("Model.ChanceCards.MoveToStart");
+                chanceMove = true;
+                break;
+
+            case "MoveThreeForward":
+                cardName.equals("Model.ChanceCards.MoveThreeForward");
+                chanceMove = true;
+                break;
+
+            case "MoveThreeBack":
+                cardName.equals("Model.ChanceCards.MoveThreeBack");
+                chanceMove = true;
+                break;
+
+            case "FullStopTicket":
+                cardName.equals("Model.ChanceCards.FullStopTicket");
+                chanceMove = true;
+                break;
+
+            case "CarInsurance":
+                cardName.equals("Model.ChanceCards.CarInsurance");
+                chanceMove = true;
+                break;
+
+            case "CarRepair":
+                cardName.equals("Model.ChanceCards.CarRepair");
+                chanceMove = true;
+                break;
+
+            case "CarWash":
+                cardName.equals("Model.ChanceCards.CarWash");
+                chanceMove = true;
+                break;
+
+            case "CustomsDuty":
+                cardName.equals("Model.ChanceCards.CustomsDuty");
+                chanceMove = true;
+                break;
+
+            case "DentistBill":
+                cardName.equals("Model.ChanceCards.DentistBill");
+                chanceMove = true;
+                break;
+
+            case "NewTires":
+                cardName.equals("Model.ChanceCards.NewTires");
+                chanceMove = true;
+                break;
+
+            case "ParkingTicket":
+                cardName.equals("Model.ChanceCards.ParkingTicket");
+                chanceMove = true;
+                break;
+
+            case "ReceiveDividend":
+                cardName.equals("Model.ChanceCards.ReceiveDividend");
+                chanceMove = true;
+                break;
+
+            case "WonTheLottery":
+                cardName.equals("Model.ChanceCards.WonTheLottery");
+                chanceMove = true;
+                break;
+
+            case "MoveFiveForward":
+                cardName.equals("Model.ChanceCards.MoveFiveForward");
+                chanceMove = true;
+                break;
+
+            case "Birthday":
+                cardName.equals("Model.ChanceCards.Birthday");
+                chanceMoneyFromOthers = true;
+                break;
+
+            default:
+
         }
-        if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
     }
 
     public void checkPassedStart(int newPosition) {
