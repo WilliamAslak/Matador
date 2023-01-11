@@ -163,84 +163,12 @@ public class Game {
 
         String cardName = chanceCard.getClass().getName();
 
-        switch(chanceCard.getClass().getName()) {
-            case "MoveToStart":
-                cardName.equals("Model.ChanceCards.MoveToStart");
-                chanceMove = true;
-                break;
-
-            case "MoveThreeForward":
-                cardName.equals("Model.ChanceCards.MoveThreeForward");
-                chanceMove = true;
-                break;
-
-            case "MoveThreeBack":
-                cardName.equals("Model.ChanceCards.MoveThreeBack");
-                chanceMove = true;
-                break;
-
-            case "FullStopTicket":
-                cardName.equals("Model.ChanceCards.FullStopTicket");
-                chanceMove = true;
-                break;
-
-            case "CarInsurance":
-                cardName.equals("Model.ChanceCards.CarInsurance");
-                chanceMove = true;
-                break;
-
-            case "CarRepair":
-                cardName.equals("Model.ChanceCards.CarRepair");
-                chanceMove = true;
-                break;
-
-            case "CarWash":
-                cardName.equals("Model.ChanceCards.CarWash");
-                chanceMove = true;
-                break;
-
-            case "CustomsDuty":
-                cardName.equals("Model.ChanceCards.CustomsDuty");
-                chanceMove = true;
-                break;
-
-            case "DentistBill":
-                cardName.equals("Model.ChanceCards.DentistBill");
-                chanceMove = true;
-                break;
-
-            case "NewTires":
-                cardName.equals("Model.ChanceCards.NewTires");
-                chanceMove = true;
-                break;
-
-            case "ParkingTicket":
-                cardName.equals("Model.ChanceCards.ParkingTicket");
-                chanceMove = true;
-                break;
-
-            case "ReceiveDividend":
-                cardName.equals("Model.ChanceCards.ReceiveDividend");
-                chanceMove = true;
-                break;
-
-            case "WonTheLottery":
-                cardName.equals("Model.ChanceCards.WonTheLottery");
-                chanceMove = true;
-                break;
-
-            case "MoveFiveForward":
-                cardName.equals("Model.ChanceCards.MoveFiveForward");
-                chanceMove = true;
-                break;
-
-            case "Birthday":
-                cardName.equals("Model.ChanceCards.Birthday");
-                chanceMoneyFromOthers = true;
-                break;
-
-            default:
-
+        switch (chanceCard.getClass().getName()) {
+            case "MoveToStart", "MoveThreeForward", "MoveThreeBack", "FullStopTicket", "CarInsurance", "CarRepair", "CarWash", "CustomsDuty", "DentistBill", "NewTires", "ParkingTicket", "ReceiveDividend", "WonTheLottery", "MoveFiveForward" ->
+                    chanceMove = true;
+            case "Birthday" -> chanceMoneyFromOthers = true;
+            default -> {
+            }
         }
     }
 
