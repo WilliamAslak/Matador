@@ -163,19 +163,19 @@ public class Game {
         option = "ok";
 
         String cardName = chanceCard.getClass().getName();
-        if (cardName.equals("Model.ChanceCards.MoveToStart")){chanceMove = true;}
-        if (cardName.equals("Model.ChanceCards.MoveThreeForward")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.MoveThreeBack")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.FullStopTicket")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.CarInsurance")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.CarRepair")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.CarWash")){chanceMove =true;}
-        if (cardName.equals("Model.ChanceCards.CustomsDuty")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.DentistBill")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.NewTires")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.ParkingTicket")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.ReceiveDividend")){chanceMove=true;}
-        if (cardName.equals("Model.ChanceCards.WonTheLottery")){ chanceMove=true;}
+        if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
+        if (cardName.equals("Model.ChanceCards.MoveThreeForward")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.MoveThreeBack")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.FullStopTicket")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarInsurance")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarRepair")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarWash")) chanceMove =true;
+        if (cardName.equals("Model.ChanceCards.CustomsDuty")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.DentistBill")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.NewTires")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.ParkingTicket")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.ReceiveDividend")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.WonTheLottery")) chanceMove=true;
         if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
             chanceMove = true;
         }
