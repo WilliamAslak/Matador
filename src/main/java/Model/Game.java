@@ -4,7 +4,7 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
-import java.util.Scanner;
+import java.util.Objects;
 
 public class Game {
     private GameBoard gameBoard;
@@ -15,7 +15,6 @@ public class Game {
     private int paidPlayerNumber;
     private Dice dice1, dice2;
     private boolean landedOnChance = false;
-    private boolean landedOnTax = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyFromOthers = false;
     private boolean passedStart = false;
@@ -44,6 +43,12 @@ public class Game {
         for (int i = 0; i < playerCount; i++) {
             players[i] = new Player(playerNames[i], startMoney);
         }
+        // Bruges til accept test K1
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].getName().contains("test")){
+                players[i].setPosition(19);
+            }
+        }
     }
 
     public boolean checkIfPlayerInJail() {
@@ -59,7 +64,7 @@ public class Game {
 
     public void newReleased() {
         message = "" + currentPlayer.getName() + " har betalt 1000 og er blevet løsladt!";
-        option = "Betal 1000";
+        option = "Betal 1M";
     }
     public void newTurn() {
         landedOnChance = false;
@@ -113,11 +118,6 @@ public class Game {
                 takeChance();
                 break;
 
-            case "skat":
-                option = "Betal skat";
-                landedOnTax = true;
-                payTax();
-                break;
             default:
 
         }
@@ -127,9 +127,8 @@ public class Game {
         dice1.roll();
         dice2.roll();
         if (currentPlayer.getName().contains("test")){
-            Scanner scanner = new Scanner(System.in);
-            dice1.setFaceValue(scanner.nextInt());
-            dice2.setFaceValue(1);
+            dice1.setFaceValue(6);
+            dice2.setFaceValue(6);
         }
         int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
@@ -163,37 +162,85 @@ public class Game {
         option = "ok";
 
         String cardName = chanceCard.getClass().getName();
-        if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeForward")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeBack")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.FullStopTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarInsurance")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarRepair")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarWash")) chanceMove =true;
-        if (cardName.equals("Model.ChanceCards.CustomsDuty")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.DentistBill")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.NewTires")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ParkingTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ReceiveDividend")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.WonTheLottery")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
-            chanceMove = true;
-        }
-        if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
-    }
-    private void payTax(){
-        if (currentPlayer.getPosition() == 4){
-            System.out.println(currentPlayer.getAccount().getWallet());
-            currentPlayer.getAccount().withdraw(4000);
-            message = "Du betaler 4000 i skat";
-            option = "Betal skat";
-            System.out.println(currentPlayer.getAccount().getWallet());
-        }
-        else if (currentPlayer.getPosition() == 38){
-            currentPlayer.getAccount().withdraw(2000);
-            message = "Du betaler 2000 i skat";
-            option = "Betal skat";
-            System.out.println(currentPlayer.getAccount().getWallet());
+
+        switch(chanceCard.getClass().getName()) {
+            case "MoveToStart":
+                cardName.equals("Model.ChanceCards.MoveToStart");
+                chanceMove = true;
+                break;
+
+            case "MoveThreeForward":
+                cardName.equals("Model.ChanceCards.MoveThreeForward");
+                chanceMove = true;
+                break;
+
+            case "MoveThreeBack":
+                cardName.equals("Model.ChanceCards.MoveThreeBack");
+                chanceMove = true;
+                break;
+
+            case "FullStopTicket":
+                cardName.equals("Model.ChanceCards.FullStopTicket");
+                chanceMove = true;
+                break;
+
+            case "CarInsurance":
+                cardName.equals("Model.ChanceCards.CarInsurance");
+                chanceMove = true;
+                break;
+
+            case "CarRepair":
+                cardName.equals("Model.ChanceCards.CarRepair");
+                chanceMove = true;
+                break;
+
+            case "CarWash":
+                cardName.equals("Model.ChanceCards.CarWash");
+                chanceMove = true;
+                break;
+
+            case "CustomsDuty":
+                cardName.equals("Model.ChanceCards.CustomsDuty");
+                chanceMove = true;
+                break;
+
+            case "DentistBill":
+                cardName.equals("Model.ChanceCards.DentistBill");
+                chanceMove = true;
+                break;
+
+            case "NewTires":
+                cardName.equals("Model.ChanceCards.NewTires");
+                chanceMove = true;
+                break;
+
+            case "ParkingTicket":
+                cardName.equals("Model.ChanceCards.ParkingTicket");
+                chanceMove = true;
+                break;
+
+            case "ReceiveDividend":
+                cardName.equals("Model.ChanceCards.ReceiveDividend");
+                chanceMove = true;
+                break;
+
+            case "WonTheLottery":
+                cardName.equals("Model.ChanceCards.WonTheLottery");
+                chanceMove = true;
+                break;
+
+            case "MoveFiveForward":
+                cardName.equals("Model.ChanceCards.MoveFiveForward");
+                chanceMove = true;
+                break;
+
+            case "Birthday":
+                cardName.equals("Model.ChanceCards.Birthday");
+                chanceMoneyFromOthers = true;
+                break;
+
+            default:
+
         }
     }
 
@@ -212,9 +259,6 @@ public class Game {
         }
     }
 
-    public boolean hasLandedOnTax(){
-        return landedOnTax;
-    }
     public boolean hasLandedOnChance() {
         return landedOnChance;
     }
