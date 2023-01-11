@@ -164,9 +164,9 @@ public class Game {
         String cardName = chanceCard.getClass().getName();
 
         switch (chanceCard.getClass().getName()) {
-            case "MoveToStart", "MoveThreeForward", "MoveThreeBack", "FullStopTicket", "CarInsurance", "CarRepair", "CarWash", "CustomsDuty", "DentistBill", "NewTires", "ParkingTicket", "ReceiveDividend", "WonTheLottery", "MoveFiveForward" ->
+            case "Model.ChanceCards.MoveToStart", "Model.ChanceCards.MoveThreeForward", "Model.ChanceCards.MoveThreeBack", "Model.ChanceCards.FullStopTicket", "Model.ChanceCards.CarInsurance", "Model.ChanceCards.CarRepair", "Model.ChanceCards.CarWash", "Model.ChanceCards.CustomsDuty", "Model.ChanceCards.DentistBill", "Model.ChanceCards.NewTires", "Model.ChanceCards.ParkingTicket", "Model.ChanceCards.ReceiveDividend", "Model.ChanceCards.WonTheLottery", "Model.ChanceCards.MoveFiveForward" ->
                     chanceMove = true;
-            case "Birthday" -> chanceMoneyFromOthers = true;
+            case "Model.ChanceCards.Birthday" -> chanceMoneyFromOthers = true;
             default -> {
             }
         }
