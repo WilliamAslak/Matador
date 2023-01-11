@@ -181,6 +181,7 @@ public class Game {
         }
         if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
     }
+    //tax
     private void payTax(){
         if (currentPlayer.getPosition() == 4){
             System.out.println(currentPlayer.getAccount().getWallet());
