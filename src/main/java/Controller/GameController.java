@@ -98,7 +98,12 @@ public class GameController {
 
                 //Felt handling
                 game.fieldAction();
-                gui.action(game.getMessage(), game.getOption());
+                //hvis spilleren lander på et ledigt felt han kan købe, bliver han spurgt om han vil købe det eller ej.
+                if(game.getOption().equals("Køb")){
+                    if(GameGUI.choiceAction(game.getMessage()+" vil du købe grunden?","ja","nej"))
+                        game.purchase(game.getCurrentPlayer().getPosition());
+                } else
+                    gui.action(game.getMessage(), game.getOption());
 
                 //Så fængsel gui virker
                 newPos = game.getCurrentPlayer().getPosition();
@@ -149,7 +154,7 @@ public class GameController {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
                 if (game.getDiceValue1() != game.getDiceValue2())
-                playerNumber++;
+                    playerNumber++;
             }
         }
     }

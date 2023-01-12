@@ -43,6 +43,8 @@ public class Game {
 
         for (int i = 0; i < playerCount; i++) {
             players[i] = new Player(playerNames[i], startMoney);
+            if (players[i].getName().contains("loser"))
+                players[i].getAccount().withdraw(startMoney);
         }
     }
 
@@ -77,7 +79,6 @@ public class Game {
 
         message = "Du landede på " + gameBoard.getFields()[position].getName();
         option = "Ok";
-
         switch (gameBoard.getFields()[position].action()) {
 
             case "ejet":
@@ -96,8 +97,7 @@ public class Game {
                 break;
 
             case "ledig":
-                option = "Køb";
-                purchase(position);
+                    option = "Køb";
                 break;
 
             case "fængsel":
@@ -121,15 +121,19 @@ public class Game {
             default:
 
         }
-    }
+
+
+
+
+        }
 
     public void move() {
         dice1.roll();
         dice2.roll();
-        if (currentPlayer.getName().contains("test")){
+        if (currentPlayer.getName().contains("test") || currentPlayer.getName().contains("loser")){
             Scanner scanner = new Scanner(System.in);
             dice1.setFaceValue(scanner.nextInt());
-            dice2.setFaceValue(1);
+            dice2.setFaceValue(0);
         }
         int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
@@ -145,7 +149,7 @@ public class Game {
 
     }
 
-    private void purchase(Integer position) {
+    public void purchase(Integer position) {
 
         int amount = ((Street) gameBoard.getFields()[position]).getPrice();
 

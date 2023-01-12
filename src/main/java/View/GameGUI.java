@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameGUI {
-    private GUI gui;
+    private static GUI gui;
     private ArrayList<GUI_Player> players = new ArrayList<>();
     private ArrayList<GUI_Car> cars = new ArrayList<>();
     private GUI_Player currentPlayer;
@@ -67,6 +67,9 @@ public class GameGUI {
 
     public void action(String message, String button) {
         gui.getUserButtonPressed(message, button);
+    }
+    public static boolean choiceAction(String msg, String leftBtn, String rightBtn){
+        return gui.getUserLeftButtonPressed(msg,leftBtn,rightBtn);
     }
     public void showDie(int faceValue1, int faceValue2) {
         gui.setDice(faceValue1, faceValue2);
