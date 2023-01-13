@@ -49,19 +49,38 @@ public class Game {
     }
 
     public boolean checkIfPlayerInJail() {
-        if (currentPlayer.isInJail() && currentPlayer.getAccount().getWallet() > 1000) {
+        /*if (currentPlayer.isInJail() && currentPlayer.getAccount().getWallet() > 1000) {
             newReleased();
             currentPlayer.getAccount().withdraw(1000);
             currentPlayer.setInJail(false);
             return true;
-        }
-        return false;
+        }*/
+        return currentPlayer.isInJail();
     }
 
 
-    public void newReleased() {
-        message = "" + currentPlayer.getName() + " har betalt 1000 og er blevet løsladt!";
-        option = "Betal 1000";
+    public void newReleased(boolean corrupt, int i) {
+        if(corrupt) {
+                currentPlayer.getAccount().withdraw(1000);
+                message = "" + currentPlayer.getName() + " har betalt 1000 og er blevet løsladt!";
+                option = "Betal 1000";
+                currentPlayer.setInJail(false);
+        }
+        else {
+            message = currentPlayer.getName() + " har " + i + " slag til at komme ud";
+            option = "Kast terning";
+            if(i == 0) {
+                message = "Du har desværre ikke nogen slag tilbage";
+                option = "slut tur";
+            }
+            if(i == -1){
+                message = "Tillykke du kom ud!";
+                option = "Nice!";
+                currentPlayer.setInJail(false);
+            }
+
+        }
+
     }
     public void newTurn() {
         landedOnChance = false;
@@ -136,6 +155,10 @@ public class Game {
         int currentPosition = currentPlayer.getPosition();
         int newPosition = currentPosition + diceValue;
         checkPassedStart(newPosition);
+    }
+    public void diceRoll(){
+        dice1.roll();
+        dice2.roll();
     }
 
     private void pay(Player player, Integer position) {
