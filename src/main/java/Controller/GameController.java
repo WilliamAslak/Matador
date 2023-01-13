@@ -111,7 +111,7 @@ public class GameController {
 
                 //CHANCE
                 if(game.hasLandedOnChance()) {
-                    gui.action(game.getMessage(), game.getOption());
+                    //gui.action(game.getMessage(), game.getOption());
 
                     if (game.isChanceMove()) {
                         game.checkPassedStart(game.getCurrentPlayer().getPosition());
