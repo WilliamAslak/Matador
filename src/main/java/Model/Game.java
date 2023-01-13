@@ -43,6 +43,8 @@ public class Game {
 
         for (int i = 0; i < playerCount; i++) {
             players[i] = new Player(playerNames[i], startMoney);
+            if (players[i].getName().contains("loser"))
+                players[i].getAccount().withdraw(startMoney);
         }
     }
 
@@ -97,7 +99,6 @@ public class Game {
 
             case "ledig":
                 option = "Køb";
-                purchase(position);
                 break;
 
             case "fængsel":
@@ -126,10 +127,10 @@ public class Game {
     public void move() {
         dice1.roll();
         dice2.roll();
-        if (currentPlayer.getName().contains("test")){
+        if (currentPlayer.getName().contains("test") ||currentPlayer.getName().contains("loser")){
             Scanner scanner = new Scanner(System.in);
             dice1.setFaceValue(scanner.nextInt());
-            dice2.setFaceValue(1);
+            dice2.setFaceValue(0);
         }
         int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
@@ -145,7 +146,7 @@ public class Game {
 
     }
 
-    private void purchase(Integer position) {
+    public void purchase(Integer position) {
 
         int amount = ((Street) gameBoard.getFields()[position]).getPrice();
 
@@ -181,6 +182,7 @@ public class Game {
         }
         if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
     }
+    //tax
     private void payTax(){
         if (currentPlayer.getPosition() == 4){
             System.out.println(currentPlayer.getAccount().getWallet());
