@@ -25,7 +25,7 @@ public class GameController {
         game.initBoard();
         Field[] fields = game.getFields();
 
-        GUI_Field[] fieldsGUI = new GUI_Field[24];
+        GUI_Field[] fieldsGUI = new GUI_Field[40];
         for (int i = 0; i < fields.length ; i++) {
             fieldsGUI[i] = fields[i].   toGui();
         }
@@ -86,7 +86,7 @@ public class GameController {
 
                 int currentPos = game.getCurrentPlayer().getPosition();
                 game.move();
-                gui.showDie(game.getDiceValue());
+                gui.showDie(game.getDiceValue1(), game.getDiceValue2());
                 int newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos, newPos);
 
@@ -98,9 +98,14 @@ public class GameController {
 
                 //Felt handling
                 game.fieldAction();
-                gui.action(game.getMessage(), game.getOption());
+                //hvis spilleren lander på et ledigt felt han kan købe, bliver han spurgt om han vil købe det eller ej.
+                if(game.getOption().equals("Køb")){
+                    if(GameGUI.choiceAction(game.getMessage()+" vil du købe grunden?","ja","nej"))
+                        game.purchase(game.getCurrentPlayer().getPosition());
+                } else
+                    gui.action(game.getMessage(), game.getOption());
 
-                //FÆNGSEL
+                //Så fængsel gui virker
                 newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos,newPos);
 
@@ -128,14 +133,28 @@ public class GameController {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
                     gui.updateBalance(game.getPaidPlayerNumber(), newBalance);
                 }
+                //TAX
+                if(game.hasLandedOnTax()){
+                    gui.action(game.getMessage(), game.getOption());
+                    int newBalance;
+                    if (game.getCurrentPlayer().getPosition() == 4) {
+                        newBalance = game.getCurrentPlayer().getAccount().getWallet() - 4000;
+                        gui.updateBalance(playerNumber, newBalance);
+                    }
+                    else if (game.getCurrentPlayer().getPosition() == 38){
+                        newBalance = game.getCurrentPlayer().getAccount().getWallet() - 2000;
+                        gui.updateBalance(playerNumber, newBalance);
+                    }
+
+                }
 
                 //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
-
-                playerNumber++;
+                if (game.getDiceValue1() != game.getDiceValue2())
+                    playerNumber++;
             }
         }
     }

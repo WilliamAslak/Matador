@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameGUI {
-    private GUI gui;
+    private static GUI gui;
     private ArrayList<GUI_Player> players = new ArrayList<>();
     private ArrayList<GUI_Car> cars = new ArrayList<>();
     private GUI_Player currentPlayer;
@@ -19,7 +19,7 @@ public class GameGUI {
     }
 
     public int getNumberOfPlayers() {
-       return gui.getUserInteger("Antal spillere?",2,4);
+       return gui.getUserInteger("Antal spillere? (mellem 3 og 6)",3,6);
     }
 
     public String getYoungestPlayerName() {
@@ -42,6 +42,8 @@ public class GameGUI {
         cars.add(new GUI_Car(Color.CYAN, Color.PINK, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.DOTTED));
         cars.add(new GUI_Car(Color.BLUE, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.ZEBRA));
         cars.add(new GUI_Car(Color.GREEN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL));
+        cars.add(new GUI_Car(Color.BLACK, Color.GREEN, GUI_Car.Type.TRACTOR, GUI_Car.Pattern.HORIZONTAL_LINE));
+        cars.add(new GUI_Car(Color.CYAN, Color.GRAY, GUI_Car.Type.RACECAR, GUI_Car.Pattern.DOTTED));
     }
 
     public void setCurrentPlayer(int playerNumber) {
@@ -66,12 +68,15 @@ public class GameGUI {
     public void action(String message, String button) {
         gui.getUserButtonPressed(message, button);
     }
-    public void showDie(int faceValue) {
-        gui.setDie(faceValue);
+    public static boolean choiceAction(String msg, String leftBtn, String rightBtn){
+        return gui.getUserLeftButtonPressed(msg,leftBtn,rightBtn);
+    }
+    public void showDie(int faceValue1, int faceValue2) {
+        gui.setDice(faceValue1, faceValue2);
     }
 
     public void showEndGame(String playerName){
-        gui.showMessage(playerName + "has lost. \n The game has ended");
+        gui.showMessage(playerName + " has lost. \n The game has ended");
         gui.close();
     }
 }

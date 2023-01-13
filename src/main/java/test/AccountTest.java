@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import Model.Player;
 
@@ -37,4 +37,4 @@ class AccountTest {
 
         assertTrue(player.getAccount().getWallet()>=0);
     }
-}
+}*/

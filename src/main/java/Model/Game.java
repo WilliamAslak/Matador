@@ -4,6 +4,8 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
+import java.util.Scanner;
+
 public class Game {
     private GameBoard gameBoard;
     private ChanceDeck chanceDeck;
@@ -11,8 +13,9 @@ public class Game {
     private Player currentPlayer;
     private Player paidPlayer = null;
     private int paidPlayerNumber;
-    private Dice dice;
+    private Dice dice1, dice2;
     private boolean landedOnChance = false;
+    private boolean landedOnTax = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyFromOthers = false;
     private boolean passedStart = false;
@@ -21,7 +24,8 @@ public class Game {
 
 
     public Game() {
-        dice = new Dice();
+        dice1 = new Dice();
+        dice2 = new Dice();
     }
 
     public void initBoard() {
@@ -33,20 +37,21 @@ public class Game {
     }
 
     public void initPlayers(String[] playerNames) {
-        int[] startMoney = {20, 18, 16};
+        int startMoney = 30000;
         int playerCount = playerNames.length;
         players = new Player[playerCount];
 
         for (int i = 0; i < playerCount; i++) {
-            players[i] = new Player(playerNames[i], startMoney[playerCount - 2]);
+            players[i] = new Player(playerNames[i], startMoney);
+            if (players[i].getName().contains("loser"))
+                players[i].getAccount().withdraw(startMoney);
         }
-
     }
 
     public boolean checkIfPlayerInJail() {
-        if (currentPlayer.isInJail()) {
+        if (currentPlayer.isInJail() && currentPlayer.getAccount().getWallet() > 1000) {
             newReleased();
-            currentPlayer.getAccount().withdraw(1);
+            currentPlayer.getAccount().withdraw(1000);
             currentPlayer.setInJail(false);
             return true;
         }
@@ -55,8 +60,8 @@ public class Game {
 
 
     public void newReleased() {
-        message = "" + currentPlayer.getName() + " er blevet løsladt!";
-        option = "Betal 1M";
+        message = "" + currentPlayer.getName() + " har betalt 1000 og er blevet løsladt!";
+        option = "Betal 1000";
     }
     public void newTurn() {
         landedOnChance = false;
@@ -74,7 +79,6 @@ public class Game {
 
         message = "Du landede på " + gameBoard.getFields()[position].getName();
         option = "Ok";
-
         switch (gameBoard.getFields()[position].action()) {
 
             case "ejet":
@@ -93,14 +97,14 @@ public class Game {
                 break;
 
             case "ledig":
-                option = "Køb";
-                purchase(position);
+                    option = "Køb";
                 break;
 
             case "fængsel":
                 option = "Du bliver sparket i fængsel";
                 currentPlayer.setInJail(true);
-                currentPlayer.setPosition(position-12);
+                currentPlayer.setPosition(10);
+
                 break;
 
             case "chance":
@@ -109,14 +113,29 @@ public class Game {
                 takeChance();
                 break;
 
+            case "skat":
+                option = "Betal skat";
+                landedOnTax = true;
+                payTax();
+                break;
             default:
 
         }
-    }
+
+
+
+
+        }
 
     public void move() {
-        dice.roll();
-        int diceValue = dice.getFaceValue();
+        dice1.roll();
+        dice2.roll();
+        if (currentPlayer.getName().contains("test") || currentPlayer.getName().contains("loser")){
+            Scanner scanner = new Scanner(System.in);
+            dice1.setFaceValue(scanner.nextInt());
+            dice2.setFaceValue(0);
+        }
+        int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
         int newPosition = currentPosition + diceValue;
         checkPassedStart(newPosition);
@@ -130,7 +149,7 @@ public class Game {
 
     }
 
-    private void purchase(Integer position) {
+    public void purchase(Integer position) {
 
         int amount = ((Street) gameBoard.getFields()[position]).getPrice();
 
@@ -149,19 +168,45 @@ public class Game {
 
         String cardName = chanceCard.getClass().getName();
         if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
+        if (cardName.equals("Model.ChanceCards.MoveThreeForward")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.MoveThreeBack")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.FullStopTicket")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarInsurance")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarRepair")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.CarWash")) chanceMove =true;
+        if (cardName.equals("Model.ChanceCards.CustomsDuty")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.DentistBill")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.NewTires")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.ParkingTicket")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.ReceiveDividend")) chanceMove=true;
+        if (cardName.equals("Model.ChanceCards.WonTheLottery")) chanceMove=true;
         if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
             chanceMove = true;
         }
         if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
-
+    }
+    private void payTax(){
+        if (currentPlayer.getPosition() == 4){
+            System.out.println(currentPlayer.getAccount().getWallet());
+            currentPlayer.getAccount().withdraw(4000);
+            message = "Du betaler 4000 i skat";
+            option = "Betal skat";
+            System.out.println(currentPlayer.getAccount().getWallet());
+        }
+        else if (currentPlayer.getPosition() == 38){
+            currentPlayer.getAccount().withdraw(2000);
+            message = "Du betaler 2000 i skat";
+            option = "Betal skat";
+            System.out.println(currentPlayer.getAccount().getWallet());
+        }
     }
 
     public void checkPassedStart(int newPosition) {
 
-        if (newPosition >= 24) {
-            currentPlayer.setPosition(newPosition - 24);
-            currentPlayer.getAccount().deposit(2);
-            message = "Du passerede start. Modtag 2M";
+        if (newPosition >= 40) {
+            currentPlayer.setPosition(newPosition - 40);
+            currentPlayer.getAccount().deposit(4000);
+            message = "Du passerede start. Modtag 4000";
             option = "OK";
             passedStart = true;
         } else {
@@ -171,6 +216,9 @@ public class Game {
         }
     }
 
+    public boolean hasLandedOnTax(){
+        return landedOnTax;
+    }
     public boolean hasLandedOnChance() {
         return landedOnChance;
     }
@@ -183,8 +231,11 @@ public class Game {
         return chanceMoneyFromOthers;
     }
 
-    public int getDiceValue() {
-        return dice.getFaceValue();
+    public int getDiceValue1() {
+        return dice1.getFaceValue();
+    }
+    public int getDiceValue2() {
+        return dice2.getFaceValue();
     }
 
     public boolean checkIfPlayerLost() {
