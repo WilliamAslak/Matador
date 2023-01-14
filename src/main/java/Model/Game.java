@@ -4,6 +4,8 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
@@ -19,6 +21,7 @@ public class Game {
     private boolean chanceMove = false;
     private boolean chanceMoneyFromOthers = false;
     private boolean passedStart = false;
+    ArrayList<Integer> mortgagedField = new ArrayList<>();
     private String message;
     private String option;
 
@@ -109,11 +112,20 @@ public class Game {
                     i++;
                 }
 
-                if (!players[i].getName().equals(currentPlayer.getName())) {
+                if (!players[i].getName().equals(currentPlayer.getName()) && !mortgagedField.contains(position)) {
                     option = "Betal";
                     paidPlayerNumber = i;
                     pay(players[i], position);
                 }
+
+                if (players[i].getName().equals(currentPlayer.getName()) && !mortgagedField.contains(position)) {
+                    option = "Pantsæt";
+                }
+
+                if (players[i].getName().equals(currentPlayer.getName()) && mortgagedField.contains(position)) {
+                    option = "Hævpant";
+                }
+
                 break;
 
             case "ledig":
@@ -168,6 +180,16 @@ public class Game {
 
     }
 
+    public void mortgage(Integer position) {
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+        currentPlayer.getAccount().deposit(amount);
+        mortgagedField.add(position);
+    }
+    public void mortgageRelease(Integer position) {
+        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+        currentPlayer.getAccount().withdraw(amount);
+        mortgagedField.removeIf(n -> (Objects.equals(n, position)));
+    }
     public void purchase(Integer position) {
 
         int amount = ((Street) gameBoard.getFields()[position]).getPrice();

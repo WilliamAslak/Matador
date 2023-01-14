@@ -142,13 +142,27 @@ public class GameController {
 
                 //Felt handling
                 game.fieldAction();
+
+                //Pantsætning
+                if(game.getOption().equals("Pantsæt")) {
+                    if(GameGUI.choiceAction(game.getMessage()+", vil du pantsætte din grund?", "ja", "nej")){
+                        game.mortgage(game.getCurrentPlayer().getPosition());
+                    }
+                }
+
+                //Hæv panteret felt
+                if(game.getOption().equals("Hævpant")) {
+                    if(GameGUI.choiceAction(game.getMessage()+", vil du hæve pantsætningen?", "ja", "nej")){
+                        game.mortgageRelease(game.getCurrentPlayer().getPosition());
+                    }
+                }
+
                 //hvis spilleren lander på et ledigt felt han kan købe, bliver han spurgt om han vil købe det eller ej.
                 if(game.getOption().equals("Køb")){
-                    if(GameGUI.choiceAction(game.getMessage()+" vil du købe grunden?","ja","nej"))
+                    if(GameGUI.choiceAction(game.getMessage()+", vil du købe grunden?","ja","nej"))
                         game.purchase(game.getCurrentPlayer().getPosition());
                 } else
                     gui.action(game.getMessage(), game.getOption());
-
 
                 //Så fængsel gui virker
                 newPos = game.getCurrentPlayer().getPosition();
