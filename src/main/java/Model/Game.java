@@ -17,9 +17,7 @@ public class Game {
     private boolean landedOnChance = false;
     private boolean landedOnTax = false;
     private boolean chanceMove = false;
-    private boolean chanceMoneyFromOthers = false;
-    private boolean chanceReceiveMoney= false;
-    private boolean chanceLostMoney=false;
+    private boolean chanceMoneyUpdate = false;
     private boolean passedStart = false;
     private String message;
     private String option;
@@ -66,7 +64,7 @@ public class Game {
     public void newTurn() {
         landedOnChance = false;
         chanceMove = false;
-        chanceMoneyFromOthers = false;
+        chanceMoneyUpdate = false;
         passedStart = false;
         paidPlayer = null;
         message = "" + currentPlayer.getName() + "'s tur";
@@ -179,37 +177,37 @@ public class Game {
                chanceMove=true;
                break;
            case "Model.ChanceCards.FullStopTicket":
-               chanceLostMoney=true;
+               chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.CarInsurance":
-               chanceLostMoney=true;
+               chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.CarRepair":
-              chanceLostMoney=true;
+              chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.CarWash":
-              chanceLostMoney=true;
+              chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.CustomsDuty":
-              chanceLostMoney=true;
+              chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.DentistBill":
-              chanceLostMoney=true;
+              chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.NewTires":
-               chanceLostMoney=true;
+               chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.ParkingTicket":
-              chanceLostMoney=true;
+              chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.ReceiveDividend":
-               chanceReceiveMoney=true;
+               chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.WonTheLottery":
-               chanceReceiveMoney=true;
+               chanceMoneyUpdate=true;
                break;
            case "Model.ChanceCards.Birthday":
-               chanceMoneyFromOthers = true;
+               chanceMoneyUpdate = true;
                break;
 
            default:
@@ -259,13 +257,9 @@ public class Game {
         return chanceMove;
     }
 
-    public boolean isChanceMoneyFromOthers() {
-        return chanceMoneyFromOthers;
+    public boolean isChanceMoneyUpdate() {
+        return chanceMoneyUpdate;
     }
-
-    public boolean isChanceReceiveMoney() {return chanceReceiveMoney;}
-
-    public boolean isChanceLostMoney() {return chanceLostMoney;}
 
     public int getDiceValue1() {
         return dice1.getFaceValue();

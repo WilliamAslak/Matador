@@ -115,7 +115,7 @@ public class GameController {
                         gui.move(currentPos, newPos);
                     }
 
-                    if(game.isChanceMoneyFromOthers()) {
+                    if(game.isChanceMoneyUpdate()) {
                         for (int i = 0; i < game.getPlayers().length ; i++) {
                             int newBalance = game.getPlayers()[i].getAccount().getWallet();
                             gui.updateBalance(i, newBalance);
