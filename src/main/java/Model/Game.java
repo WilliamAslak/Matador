@@ -18,6 +18,8 @@ public class Game {
     private boolean landedOnTax = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyFromOthers = false;
+    private boolean chanceReceiveMoney= false;
+    private boolean chanceLostMoney=false;
     private boolean passedStart = false;
     private String message;
     private String option;
@@ -177,34 +179,34 @@ public class Game {
                chanceMove=true;
                break;
            case "Model.ChanceCards.FullStopTicket":
-              // chanceMove=true;
+               chanceLostMoney=true;
                break;
            case "Model.ChanceCards.CarInsurance":
-               //chanceMove=true;
+               chanceLostMoney=true;
                break;
            case "Model.ChanceCards.CarRepair":
-              // chanceMove=true;
+              chanceLostMoney=true;
                break;
            case "Model.ChanceCards.CarWash":
-              // chanceMove=true;
+              chanceLostMoney=true;
                break;
            case "Model.ChanceCards.CustomsDuty":
-              // chanceMove=true;
+              chanceLostMoney=true;
                break;
            case "Model.ChanceCards.DentistBill":
-              // chanceMove=true;
+              chanceLostMoney=true;
                break;
            case "Model.ChanceCards.NewTires":
-               //chanceMove=true;
+               chanceLostMoney=true;
                break;
            case "Model.ChanceCards.ParkingTicket":
-              // chanceMove=true;
+              chanceLostMoney=true;
                break;
            case "Model.ChanceCards.ReceiveDividend":
-              //chanceMove=true;
+               chanceReceiveMoney=true;
                break;
            case "Model.ChanceCards.WonTheLottery":
-                //chanceMove=true;
+               chanceReceiveMoney=true;
                break;
            case "Model.ChanceCards.Birthday":
                chanceMoneyFromOthers = true;
@@ -260,6 +262,10 @@ public class Game {
     public boolean isChanceMoneyFromOthers() {
         return chanceMoneyFromOthers;
     }
+
+    public boolean isChanceReceiveMoney() {return chanceReceiveMoney;}
+
+    public boolean isChanceLostMoney() {return chanceLostMoney;}
 
     public int getDiceValue1() {
         return dice1.getFaceValue();
