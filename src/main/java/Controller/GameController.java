@@ -9,6 +9,7 @@ public class GameController {
     private Game game;
     private GameGUI gui;
     private int playerCount;
+    private int ensCounter = 0;
 
     public GameController(Game game, GameGUI gui) {
         this.game = game;
@@ -197,8 +198,19 @@ public class GameController {
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
-                if (game.getDiceValue1() != game.getDiceValue2())
+
+                //Ny spiller slår når der ikke er ens terninger
+                if (game.getDiceValue1() != game.getDiceValue2()){
                     playerNumber++;
+                    ensCounter = 0;
+                }
+
+                //Max 3 ens i træk
+                if(ensCounter == 3){
+                    playerNumber++;
+                    ensCounter = 0;
+                }
+                ensCounter++;
             }
         }
     }

@@ -124,7 +124,6 @@ public class Game {
                 option = "Du bliver sparket i fængsel";
                 currentPlayer.setInJail(true);
                 currentPlayer.setPosition(10);
-
                 break;
 
             case "chance":
