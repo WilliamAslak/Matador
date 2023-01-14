@@ -68,11 +68,6 @@ public class GameController {
                 game.setCurrentPlayer(playerNumber);
                 gui.setCurrentPlayer(playerNumber);
 
-                if(game.checkIfPlayerInJail()) {
-                    gui.action(game.getMessage(), game.getOption());
-                    gui.updateBalance(playerNumber, game.getCurrentPlayer().getAccount().getWallet() );
-                }
-
                 //LOSE
                 if(game.checkIfPlayerLost()) {
                     isGameOver = true;
@@ -80,8 +75,56 @@ public class GameController {
                     break;
                 }
 
-                game.newTurn();
+                //hvis spiller sidder i fængsel skal der spørges om han vil slå eller betale på hans næste tur.
+                if(game.checkIfPlayerInJail()) {
+                    //vil du betale eller kaste for at komme ud?
+                    boolean corrupt = !GameGUI.choiceAction(game.getCurrentPlayer().getName()+" vil du slå dig ud af fængsel?", "ja", "nej, betal 1000");
+                    //hvis du gerne vil betale, bliver funktionen kaldt
+                    if(corrupt){
+                        game.newReleased(true,3);
+                        gui.action(game.getMessage(), game.getOption());
+                        gui.updateBalance(playerNumber, game.getCurrentPlayer().getAccount().getWallet());
+                    }
+                    //ellers begynder while loopet der tæller ned fra hvert kast, når den rammer 0 bliver det næste spillers tur
+                    else {
+                        //man har i antal kast
+                        int i = 3;
+                        while(i>=0) {
+                            //sig man har i antal kast tilbage
+                            game.newReleased(false,i);
+                            gui.action(game.getMessage(), game.getOption());
+                            System.out.println("i = "+i);
+                            if(i==0) {
+                                playerNumber++;
+                                //det her kan blive simplified da det praktisk talt er en kopi fra starten af playTurn()
+                                if(playerNumber >= playerCount)
+                                    playerNumber = 0;
+                                game.setCurrentPlayer(playerNumber);
+                                gui.setCurrentPlayer(playerNumber);
+                                break;
+                            }
+                            //efter man har klikket på knappen, kast så terningerne og vis dem.
+                            game.diceRoll();
+                            gui.showDie(game.getDiceValue1(), game.getDiceValue2());
 
+                            if (game.getDiceValue1() == game.getDiceValue2()) {
+                                //-1 er det man kalder newReleased funktionen med for at vise man har fået 2 ens.
+                                game.newReleased(false,-1);
+                                gui.action(game.getMessage(), game.getOption());
+                                //bryd loopet
+                                break;
+                            }
+                            //du har slået, i er ikke 0, eller du fik ikke 2 ens.
+                            i--;
+
+
+
+                        }
+
+                    }
+                }
+
+                game.newTurn();
                 gui.action(game.getMessage(), game.getOption());
 
                 int currentPos = game.getCurrentPlayer().getPosition();
@@ -105,13 +148,14 @@ public class GameController {
                 } else
                     gui.action(game.getMessage(), game.getOption());
 
+
                 //Så fængsel gui virker
                 newPos = game.getCurrentPlayer().getPosition();
                 gui.move(currentPos,newPos);
 
                 //CHANCE
                 if(game.hasLandedOnChance()) {
-                    gui.action(game.getMessage(), game.getOption());
+                    //gui.action(game.getMessage(), game.getOption());
 
                     if (game.isChanceMove()) {
                         game.checkPassedStart(game.getCurrentPlayer().getPosition());
@@ -135,7 +179,7 @@ public class GameController {
                 }
                 //TAX
                 if(game.hasLandedOnTax()){
-                    gui.action(game.getMessage(), game.getOption());
+                    //gui.action(game.getMessage(), game.getOption());
                     int newBalance;
                     if (game.getCurrentPlayer().getPosition() == 4) {
                         newBalance = game.getCurrentPlayer().getAccount().getWallet() - 4000;
