@@ -1,6 +1,7 @@
 package Model.ChanceCards;
 
 import Model.Player;
+import Controller.GameController;
 
 abstract public class ChanceCard {
     private String description;

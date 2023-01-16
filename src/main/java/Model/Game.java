@@ -16,6 +16,7 @@ public class Game {
     private Dice dice1, dice2;
     private boolean landedOnChance = false;
     private boolean landedOnTax = false;
+    private boolean landedOnParking = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyUpdate = false;
     private boolean passedStart = false;
@@ -267,6 +268,8 @@ public class Game {
     public boolean hasLandedOnChance() {
         return landedOnChance;
     }
+
+    public boolean hasLandedOnParking(){return landedOnParking;}
 
     public boolean isChanceMove() {
         return chanceMove;

@@ -9,7 +9,7 @@ public class GameController {
     private Game game;
     private GameGUI gui;
     private int playerCount;
-    private int moneyCounter=0;
+    private static int moneyCounter=0;
 
     public GameController(Game game, GameGUI gui) {
         this.game = game;
@@ -144,6 +144,17 @@ public class GameController {
                     }
 
                 }
+                //Gratis Parkering
+                if(game.hasLandedOnParking()){
+                    moneyCounter=collectMoneyFromParkingField();
+                }
+                if(game.getCurrentPlayer().getPosition()==20){
+                   game.getCurrentPlayer().getAccount().deposit(collectMoneyFromParkingField());
+
+                }
+
+
+                }
 
                 //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
@@ -152,10 +163,14 @@ public class GameController {
                 }
                 if (game.getDiceValue1() != game.getDiceValue2())
                 playerNumber++;
+
+
+
             }
         }
-    }
-    public void updateMoneyCounter(int moneyLost) {
+
+    // Gratis Parkering
+    public static void updateMoneyCounter(int moneyLost) {
         moneyCounter += moneyLost;
     }
     public int collectMoneyFromParkingField() {
