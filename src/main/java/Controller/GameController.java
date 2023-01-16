@@ -9,6 +9,7 @@ public class GameController {
     private Game game;
     private GameGUI gui;
     private int playerCount;
+    private int moneyCounter=0;
 
     public GameController(Game game, GameGUI gui) {
         this.game = game;
@@ -123,6 +124,7 @@ public class GameController {
                     }
                 }
 
+
                 //BETAL
                 if(game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
@@ -153,5 +155,12 @@ public class GameController {
             }
         }
     }
-
+    public void updateMoneyCounter(int moneyLost) {
+        moneyCounter += moneyLost;
+    }
+    public int collectMoneyFromParkingField() {
+        int collectedMoney = moneyCounter;
+        moneyCounter = 0;
+        return collectedMoney;
+    }
 }

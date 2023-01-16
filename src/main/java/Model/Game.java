@@ -22,7 +22,6 @@ public class Game {
     private String message;
     private String option;
 
-
     public Game() {
         dice1 = new Dice();
         dice2 = new Dice();
@@ -167,45 +166,59 @@ public class Game {
            case "Model.ChanceCards.MoveToStart":
                chanceMove=true;
                break;
+
            case "Model.ChanceCards.MoveThreeForward":
                chanceMove=true;
                break;
+
            case "Model.ChanceCards.MoveThreeBack":
                chanceMove=true;
                break;
+
            case "Model.ChanceCards.MoveFiveForward":
                chanceMove=true;
                break;
+
            case "Model.ChanceCards.FullStopTicket":
                chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.CarInsurance":
                chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.CarRepair":
               chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.CarWash":
               chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.CustomsDuty":
               chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.DentistBill":
               chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.NewTires":
                chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.ParkingTicket":
               chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.ReceiveDividend":
                chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.WonTheLottery":
                chanceMoneyUpdate=true;
                break;
+
            case "Model.ChanceCards.Birthday":
                chanceMoneyUpdate = true;
                break;
@@ -214,6 +227,7 @@ public class Game {
 
        }
     }
+
     //tax
     private void payTax(){
         if (currentPlayer.getPosition() == 4){
@@ -245,6 +259,7 @@ public class Game {
             option = "";
         }
     }
+
 
     public boolean hasLandedOnTax(){
         return landedOnTax;

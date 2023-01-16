@@ -11,8 +11,8 @@ abstract public class ChanceCard {
 
     abstract public void process(Player[] players, Player current);
 
-
     public String getDescription() {
         return description;
     }
+
 }

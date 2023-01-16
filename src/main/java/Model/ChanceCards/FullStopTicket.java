@@ -8,5 +8,9 @@ public class FullStopTicket extends ChanceCard {
 
     @Override
     public void process(Player[] players, Player current) {
-        current.getAccount().withdraw(1000);}
+        current.getAccount().withdraw(1000);
+    }
+    public void updateMoneyCounter(int moneyLost) {
+        int storedMoney= 1000;
+    }
 }

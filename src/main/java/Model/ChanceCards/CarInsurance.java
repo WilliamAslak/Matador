@@ -9,4 +9,9 @@ public class CarInsurance extends ChanceCard{
     public void process(Player[] players, Player current) {
         current.getAccount().withdraw(1000);
     }
+
+
+
+
+
 }
