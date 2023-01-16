@@ -146,11 +146,7 @@ public class GameController {
                 }
                 //Gratis Parkering
                 if(game.hasLandedOnParking()){
-                    moneyCounter=collectMoneyFromParkingField();
-                }
-                if(game.getCurrentPlayer().getPosition()==20){
-                   game.getCurrentPlayer().getAccount().deposit(collectMoneyFromParkingField());
-
+                    gui.action(game.getMessage(),game.getOption());
                 }
 
 
@@ -173,7 +169,7 @@ public class GameController {
     public static void updateMoneyCounter(int moneyLost) {
         moneyCounter += moneyLost;
     }
-    public int collectMoneyFromParkingField() {
+    public static int collectMoneyFromParkingField() {
         int collectedMoney = moneyCounter;
         moneyCounter = 0;
         return collectedMoney;

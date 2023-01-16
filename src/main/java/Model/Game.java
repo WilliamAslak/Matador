@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.GameController;
 import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
@@ -118,6 +119,13 @@ public class Game {
                 landedOnTax = true;
                 payTax();
                 break;
+
+            case "parkering":
+                option = "Fri parkering, høst hella moneros";
+                landedOnParking = true;
+                payoutParking();
+                break;
+
             default:
 
         }
@@ -259,6 +267,13 @@ public class Game {
             message = "";
             option = "";
         }
+    }
+
+    public void payoutParking(){
+        int moneys = GameController.collectMoneyFromParkingField();
+        currentPlayer.getAccount().deposit(moneys);
+        message = "Congratz du har høstet "+moneys+" kr";
+        option = "cool";
     }
 
 
