@@ -10,5 +10,7 @@ public class Dice {
     }
     public void roll() {
         faceValue = ((int)(Math.random()*6+1));
+        //Accepttest for pantsætning
+        //faceValue = 4;
     }
 }
