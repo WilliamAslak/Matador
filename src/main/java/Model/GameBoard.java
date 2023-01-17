@@ -53,7 +53,8 @@ public class GameBoard {
                 new Street("Vimmelskaftet",Color.YELLOW, 6000,4000,new int[]{550,2600,7800,18000,22000,25000}),
                 new Chance(),
                 new Street("Nygade",Color.YELLOW, 6400,4000,new int[]{600,3000,9000,20000,24000,28000}),
-                new Metro(),                new Chance(),
+                new Metro(),
+                new Chance(),
                 new Street("Frederiksberggade",purple, 7000,4000,new int[]{700,3500,10000,22000,26000,30000}),
                 new Tax("Ekstraordinær statsskat betal kr. 2000", 2000),
                 new Street("Rådhuspladsen",purple, 8000,4000,new int[]{1000,4000,12000,28000,34000,40000})
