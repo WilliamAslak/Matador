@@ -144,11 +144,6 @@ public class GameController {
                     }
 
                 }
-                //Gratis Parkering
-                if(game.hasLandedOnParking()){
-                    gui.action(game.getMessage(),game.getOption());
-                }
-
 
                 }
 
@@ -165,13 +160,22 @@ public class GameController {
             }
         }
 
-    // Gratis Parkering
+    /**
+     * @param moneyLost
+     * from chance cards whenever a player gets withdrawn money from their accounts.
+     */
     public static void updateMoneyCounter(int moneyLost) {
         moneyCounter += moneyLost;
     }
+
+
+    /**
+     * @return
+     *  when a player lands on Parking field. They collect the stored money and the moneyCounter resets to 0.
+     */
     public static int collectMoneyFromParkingField() {
         int collectedMoney = moneyCounter;
         moneyCounter = 0;
-        return collectedMoney;
+        return moneyCounter;
     }
 }

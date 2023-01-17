@@ -17,7 +17,7 @@ public class Game {
     private Dice dice1, dice2;
     private boolean landedOnChance = false;
     private boolean landedOnTax = false;
-    private boolean landedOnParking = false;
+    private boolean landedOnParking=false;
     private boolean chanceMove = false;
     private boolean chanceMoneyUpdate = false;
     private boolean passedStart = false;
@@ -122,7 +122,7 @@ public class Game {
 
             case "parkering":
                 option = "Fri parkering, høst hella moneros";
-                landedOnParking = true;
+                landedOnParking=true;
                 payoutParking();
                 break;
 
