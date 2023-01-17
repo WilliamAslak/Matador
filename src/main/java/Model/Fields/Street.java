@@ -37,5 +37,5 @@ public class Street extends Field{
         return price;
     }
 
-
+    public Color getColor(){return color;}
 }

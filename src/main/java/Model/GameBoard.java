@@ -4,6 +4,7 @@ import Model.Fields.*;
 import gui_fields.GUI_Tax;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameBoard {
     private Field[] fields;
@@ -45,10 +46,10 @@ public class GameBoard {
                 new Street("Coca Cola",Color.red, 3000),
                 new Street("Østergade",Color.WHITE, 5600),
                 new GoToJail(),
-                new Street("Amagertorv",Color.yellow, 6000),
-                new Street("Vimmelskaftet",Color.yellow, 6000),
+                new Street("Amagertorv",Color.YELLOW, 6000),
+                new Street("Vimmelskaftet",Color.YELLOW, 6000),
                 new Chance(),
-                new Street("Nygade",Color.yellow, 6400),
+                new Street("Nygade",Color.YELLOW, 6400),
                 new Street("Scandilines",Color.blue, 4000),
                 new Chance(),
                 new Street("Frederiksberggade",Color.pink, 7000),
@@ -60,6 +61,20 @@ public class GameBoard {
 
     public Field[] getFields() {
         return fields;
+    }
+    public Field[] getFieldOfColor(Color color){
+        //bruger arraylist da jeg ikke ved om der er 2 eller 3 elementer i arrayet
+        ArrayList<Field> fieldOfColor = new ArrayList<>();
+        for (int i = 0; i < getFields().length; i++){
+            if(getFields()[i].getClass().equals(Street.class))
+                if(((Street) getFields()[i]).getColor().equals(color))
+                    fieldOfColor.add(getFields()[i]);
+        }
+        //midlertidig scuffed løsning
+        Field[] fields1 = new Field[fieldOfColor.size()];
+        for(int j = 0; j < fieldOfColor.size(); j++)
+            fields1[j] = fieldOfColor.get(j);
+        return fields1;
     }
 
 

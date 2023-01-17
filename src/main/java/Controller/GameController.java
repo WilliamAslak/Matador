@@ -5,6 +5,8 @@ import gui_fields.GUI_Field;
 import Model.Game;
 import View.GameGUI;
 
+import java.awt.*;
+
 public class GameController {
     private Game game;
     private GameGUI gui;
@@ -161,9 +163,10 @@ public class GameController {
 
                 //hvis spilleren lander på et ledigt felt han kan købe, bliver han spurgt om han vil købe det eller ej.
                 if (game.getOption().equals("Køb")) {
-                    if(game.canAfford(game.getCurrentPlayer().getPosition()))
+                    if(game.canAfford(game.getCurrentPlayer().getPosition())) {
                         if (GameGUI.choiceAction(game.getMessage() + ", vil du købe grunden?", "ja", "nej"))
                             game.purchase(game.getCurrentPlayer().getPosition());
+                    }
                     else gui.action("Du har desværre ikke råd til grunden","Øv");
                 } else
                     gui.action(game.getMessage(), game.getOption());
@@ -190,7 +193,8 @@ public class GameController {
                         }
                     }
                 }
-
+                Field[] f = game.getFieldOfColor(Color.yellow);
+                for (Field field : f) System.out.println(field.getName());
 
                 //BETAL
                 if (game.getPaidPlayer() != null) {

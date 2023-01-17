@@ -5,6 +5,7 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -372,6 +373,9 @@ public class Game {
 
     public Field[] getFields() {
         return gameBoard.getFields();
+    }
+    public Field[] getFieldOfColor(Color c){
+        return gameBoard.getFieldOfColor(c);
     }
 
     public Player[] getPlayers() {
