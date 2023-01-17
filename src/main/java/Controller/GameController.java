@@ -9,6 +9,7 @@ public class GameController {
     private Game game;
     private GameGUI gui;
     private int playerCount;
+    private static int moneyCounter=0;
     private int ensCounter = 0;
 
     public GameController(Game game, GameGUI gui) {
@@ -179,13 +180,14 @@ public class GameController {
                         gui.move(currentPos, newPos);
                     }
 
-                    if(game.isChanceMoneyFromOthers()) {
+                    if(game.isChanceMoneyUpdate()) {
                         for (int i = 0; i < game.getPlayers().length ; i++) {
                             int newBalance = game.getPlayers()[i].getAccount().getWallet();
                             gui.updateBalance(i, newBalance);
                         }
                     }
                 }
+
 
                 //BETAL
                 if(game.getPaidPlayer() != null) {
@@ -206,12 +208,24 @@ public class GameController {
                     }
 
                 }
+                //Gratis Parkering
+                if(game.hasLandedOnParking()){
+                    gui.action(game.getMessage(),game.getOption());
+                }
+
+
+                }
 
                 //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
+                if (game.getDiceValue1() != game.getDiceValue2())
+                    playerNumber++;
+
+
+
 
                 //Ny spiller slår når der ikke er ens terninger
                 if (game.getDiceValue1() != game.getDiceValue2()){
@@ -227,6 +241,14 @@ public class GameController {
                 ensCounter++;
             }
         }
-    }
 
+    // Gratis Parkering
+    public static void updateMoneyCounter(int moneyLost) {
+        moneyCounter += moneyLost;
+    }
+    public static int collectMoneyFromParkingField() {
+        int collectedMoney = moneyCounter;
+        moneyCounter = 0;
+        return collectedMoney;
+    }
 }

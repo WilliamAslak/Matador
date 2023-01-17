@@ -1,6 +1,7 @@
 package Model.ChanceCards;
 
 import Model.Player;
+import Controller.GameController;
 
 abstract public class ChanceCard {
     private String description;
@@ -11,8 +12,8 @@ abstract public class ChanceCard {
 
     abstract public void process(Player[] players, Player current);
 
-
     public String getDescription() {
         return description;
     }
+
 }

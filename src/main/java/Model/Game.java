@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.GameController;
 import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
@@ -18,13 +19,13 @@ public class Game {
     private Dice dice1, dice2;
     private boolean landedOnChance = false;
     private boolean landedOnTax = false;
+    private boolean landedOnParking = false;
     private boolean chanceMove = false;
-    private boolean chanceMoneyFromOthers = false;
+    private boolean chanceMoneyUpdate = false;
     private boolean passedStart = false;
     ArrayList<Integer> mortgagedField = new ArrayList<>();
     private String message;
     private String option;
-
 
     public Game() {
         dice1 = new Dice();
@@ -88,7 +89,7 @@ public class Game {
     public void newTurn() {
         landedOnChance = false;
         chanceMove = false;
-        chanceMoneyFromOthers = false;
+        chanceMoneyUpdate = false;
         passedStart = false;
         paidPlayer = null;
         message = "" + currentPlayer.getName() + "'s tur";
@@ -149,6 +150,13 @@ public class Game {
                 landedOnTax = true;
                 payTax();
                 break;
+
+            case "parkering":
+                option = "Fri parkering, høst hella moneros";
+                landedOnParking = true;
+                payoutParking();
+                break;
+
             default:
 
         }
@@ -208,24 +216,72 @@ public class Game {
         option = "ok";
 
         String cardName = chanceCard.getClass().getName();
-        if (cardName.equals("Model.ChanceCards.MoveToStart")) chanceMove = true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeForward")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveThreeBack")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.FullStopTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarInsurance")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarRepair")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.CarWash")) chanceMove =true;
-        if (cardName.equals("Model.ChanceCards.CustomsDuty")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.DentistBill")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.NewTires")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ParkingTicket")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.ReceiveDividend")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.WonTheLottery")) chanceMove=true;
-        if (cardName.equals("Model.ChanceCards.MoveFiveForward")) {
-            chanceMove = true;
-        }
-        if (cardName.equals("Model.ChanceCards.Birthday")) chanceMoneyFromOthers = true;
+       switch(cardName) {
+           case "Model.ChanceCards.MoveToStart":
+               chanceMove=true;
+               break;
+
+           case "Model.ChanceCards.MoveThreeForward":
+               chanceMove=true;
+               break;
+
+           case "Model.ChanceCards.MoveThreeBack":
+               chanceMove=true;
+               break;
+
+           case "Model.ChanceCards.MoveFiveForward":
+               chanceMove=true;
+               break;
+
+           case "Model.ChanceCards.FullStopTicket":
+               chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.CarInsurance":
+               chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.CarRepair":
+              chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.CarWash":
+              chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.CustomsDuty":
+              chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.DentistBill":
+              chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.NewTires":
+               chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.ParkingTicket":
+              chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.ReceiveDividend":
+               chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.WonTheLottery":
+               chanceMoneyUpdate=true;
+               break;
+
+           case "Model.ChanceCards.Birthday":
+               chanceMoneyUpdate = true;
+               break;
+
+           default:
+
+       }
     }
+
     //tax
     private void payTax(){
         if (currentPlayer.getPosition() == 4){
@@ -258,6 +314,14 @@ public class Game {
         }
     }
 
+    public void payoutParking(){
+        int moneys = GameController.collectMoneyFromParkingField();
+        currentPlayer.getAccount().deposit(moneys);
+        message = "Congratz du har høstet "+moneys+" kr";
+        option = "cool";
+    }
+
+
     public boolean hasLandedOnTax(){
         return landedOnTax;
     }
@@ -265,12 +329,14 @@ public class Game {
         return landedOnChance;
     }
 
+    public boolean hasLandedOnParking(){return landedOnParking;}
+
     public boolean isChanceMove() {
         return chanceMove;
     }
 
-    public boolean isChanceMoneyFromOthers() {
-        return chanceMoneyFromOthers;
+    public boolean isChanceMoneyUpdate() {
+        return chanceMoneyUpdate;
     }
 
     public int getDiceValue1() {
