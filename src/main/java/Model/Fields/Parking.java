@@ -18,6 +18,8 @@ public class Parking extends Field {
 
     @Override
     public String action() {
-        return "";
+        return "parkering";
     }
+
+
 }

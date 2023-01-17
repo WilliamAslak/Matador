@@ -1,5 +1,6 @@
 package Model.ChanceCards;
 
+import Controller.GameController;
 import Model.Player;
 
 public class CarWash extends ChanceCard{
@@ -8,5 +9,6 @@ public class CarWash extends ChanceCard{
     @Override
     public void process(Player[] players, Player current) {
         current.getAccount().withdraw(300);
+        GameController.updateMoneyCounter(300);
     }
 }
