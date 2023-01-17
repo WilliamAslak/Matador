@@ -247,12 +247,12 @@ public class GameController {
                             if (canAfford < possibleHousing) possibleHousing = canAfford;
                             String[] z;
                             if(possibleHousing<0)   z = new String[Math.abs(possibleHousing)];
-                            else z = new String[possibleHousing-1];
+                            else z = new String[possibleHousing];
                             System.out.println(possibleHousing);
                             if(possibleHousing==-1)
                                 z[0] = "1 hotel";
                             else
-                                for(int i=0; i<possibleHousing-1; i++)
+                                for(int i=0; i<possibleHousing; i++)
                                     z[i] = "antal: "+(i + 1);
 
                                 //mængdeKøbt bliver til svaret spilleren giver, hvor svaret først bliver strippet for dens ikkenumeriske værdier, og derefter omdannet fra str til int.

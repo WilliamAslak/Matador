@@ -51,8 +51,6 @@ public class Game {
             players[i] = new Player(playerNames[i], startMoney);
             if (players[i].getName().contains("loser"))
                 players[i].getAccount().withdraw(startMoney);
-            if(players[i].getName().contains("test"))
-                players[i].getAccount().deposit(99999);
         }
     }
 
@@ -181,6 +179,19 @@ public class Game {
             dice1.setFaceValue(scanner.nextInt());
             dice2.setFaceValue(0);
         }
+        if(currentPlayer.getName().contains("fængsel") && !currentPlayer.isInJail()){
+            dice1.setFaceValue(30-currentPlayer.getPosition());
+            dice2.setFaceValue(0);
+        }
+        if(currentPlayer.getName().contains("hotel")){
+            if(currentPlayer.getPosition() == 39)
+                dice1.setFaceValue(1);
+            else dice1.setFaceValue(3);
+            dice2.setFaceValue(0);
+            currentPlayer.setPosition(36);
+
+        }
+
         int diceValue = dice1.getFaceValue() + dice2.getFaceValue();
         int currentPosition = currentPlayer.getPosition();
         int newPosition = currentPosition + diceValue;
@@ -227,9 +238,9 @@ public class Game {
     public boolean playerCanBuildHotel(Color c){
         Field[] f = getFieldOfColor(c);
         if(f.length == 0) return false;
-        else
-            for (Field field : f) if(!currentPlayer.getOwnedProperties().contains(field))
-                return false;
+        if(currentPlayer.getAccount().getWallet() < ((Street) gameBoard.getFields()[currentPlayer.getPosition()]).getHousePrice()) return false;
+        for (Field field : f) if(!currentPlayer.getOwnedProperties().contains(field))
+            return false;
         return true;
     }
 
