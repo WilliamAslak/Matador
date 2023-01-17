@@ -1,9 +1,13 @@
 package Controller;
 
 import Model.Fields.Field;
+import Model.Fields.Street;
 import gui_fields.GUI_Field;
 import Model.Game;
 import View.GameGUI;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameController {
     private Game game;
@@ -11,6 +15,11 @@ public class GameController {
     private int playerCount;
     private static int moneyCounter=0;
     private int ensCounter = 0;
+
+    //flere farveværdier til at kunne se forskel på guien
+    Color darkYellow    = new Color(200, 200, 0);
+    Color streetRed = new Color(200,0,0);
+    Color purple = new Color(128, 0, 128);
 
     public GameController(Game game, GameGUI gui) {
         this.game = game;
@@ -161,9 +170,10 @@ public class GameController {
 
                 //hvis spilleren lander på et ledigt felt han kan købe, bliver han spurgt om han vil købe det eller ej.
                 if (game.getOption().equals("Køb")) {
-                    if(game.canAfford(game.getCurrentPlayer().getPosition()))
+                    if(game.canAfford(game.getCurrentPlayer().getPosition())) {
                         if (GameGUI.choiceAction(game.getMessage() + ", vil du købe grunden?", "ja", "nej"))
                             game.purchase(game.getCurrentPlayer().getPosition());
+                    }
                     else gui.action("Du har desværre ikke råd til grunden","Øv");
                 } else
                     gui.action(game.getMessage(), game.getOption());
@@ -191,7 +201,6 @@ public class GameController {
                     }
                 }
 
-
                 //BETAL
                 if (game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
@@ -216,13 +225,43 @@ public class GameController {
                 }
 
 
+
                 //Opdater saldo
                 int currentBalance = game.getCurrentPlayer().getAccount().getWallet();
                 if (currentBalance != gui.getPlayer().getBalance()) {
                     gui.updateBalance(playerNumber, currentBalance);
                 }
 
+                String s;
+                if(game.getFields()[game.getCurrentPlayer().getPosition()].getClass().equals(Street.class))
+                    if(game.playerCanBuildHotel(((Street) game.getFields()[game.getCurrentPlayer().getPosition()]).getColor()))
+                        if(GameGUI.choiceAction(game.getCurrentPlayer().getName() + " du har muligheden for at bygge et hus/hotel på de her farver", "byg", "slut tur")) {
+                            s = gui.getUserSelection("Hvor vil du bygge?",game.getFieldsAsString(game.getFieldOfColor(((Street) game.getFields()[game.getCurrentPlayer().getPosition()]).getColor())));
+                            //er ikke helt tilfreds med løsningen her, kan optimeres.
+                            //vi finder ud af hvor mange huse man har råd til at købe vs hvor mange man kan købe
+                            int possibleHousing = 5-((Street) game.getFieldByName(s)).getHouse();
+                            int canAfford = (int) Math.floor(game.getCurrentPlayer().getAccount().getWallet()/((Street) game.getFieldByName(s)).getHousePrice());
+                            //hvis der kun er 1 hus tilbage, betyder det at det skal være et hotel.
+                            if(possibleHousing == 1 && canAfford>=1) possibleHousing = -1;
+                            //hvis man har råd til færre huse end der er til rådighed får man kun dem som mulighed pga man ikke skal kunne tabe pga man køber huse.
+                            if (canAfford < possibleHousing) possibleHousing = canAfford;
+                            String[] z;
+                            if(possibleHousing<0)   z = new String[Math.abs(possibleHousing)];
+                            else z = new String[possibleHousing-1];
+                            System.out.println(possibleHousing);
+                            if(possibleHousing==-1)
+                                z[0] = "1 hotel";
+                            else
+                                for(int i=0; i<possibleHousing-1; i++)
+                                    z[i] = "antal: "+(i + 1);
 
+                                //mængdeKøbt bliver til svaret spilleren giver, hvor svaret først bliver strippet for dens ikkenumeriske værdier, og derefter omdannet fra str til int.
+                            int mængdeKøbt = Integer.parseInt(gui.getUserSelection("Pris pr hus er "+((Street) game.getFieldByName(s)).getHousePrice(),z).replaceAll("[^\\d.]",""));
+                            System.out.println(mængdeKøbt+" "+mængdeKøbt*((Street) game.getFieldByName(s)).getHousePrice());
+                            ((Street) game.getFieldByName(s)).buildHouse(mængdeKøbt);
+                            game.getCurrentPlayer().getAccount().withdraw(mængdeKøbt * ((Street) game.getFieldByName(s)).getHousePrice());
+                            gui.updateBalance(playerNumber, game.getCurrentPlayer().getAccount().getWallet());
+                        }
 
 
                 //Ny spiller slår når der ikke er ens terninger eller 3 ens i træk

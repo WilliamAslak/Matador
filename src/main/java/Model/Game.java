@@ -5,6 +5,7 @@ import Model.ChanceCards.ChanceCard;
 import Model.Fields.Field;
 import Model.Fields.Street;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -50,6 +51,8 @@ public class Game {
             players[i] = new Player(playerNames[i], startMoney);
             if (players[i].getName().contains("loser"))
                 players[i].getAccount().withdraw(startMoney);
+            if(players[i].getName().contains("test"))
+                players[i].getAccount().deposit(99999);
         }
     }
 
@@ -189,7 +192,7 @@ public class Game {
     }
 
     private void pay(Player player, Integer position) {
-        int amount = ((Street) gameBoard.getFields()[position]).getPrice();
+        int amount = ((Street) gameBoard.getFields()[position]).getRent();
         currentPlayer.getAccount().withdraw(amount);
         player.getAccount().deposit(amount);
         paidPlayer = player;
@@ -219,6 +222,15 @@ public class Game {
 
     public boolean canAfford(Integer position){
         return currentPlayer.getAccount().getWallet() >= ((Street) gameBoard.getFields()[position]).getPrice();
+    }
+
+    public boolean playerCanBuildHotel(Color c){
+        Field[] f = getFieldOfColor(c);
+        if(f.length == 0) return false;
+        else
+            for (Field field : f) if(!currentPlayer.getOwnedProperties().contains(field))
+                return false;
+        return true;
     }
 
     private void takeChance() {
@@ -402,7 +414,21 @@ public class Game {
     public Field[] getFields() {
         return gameBoard.getFields();
     }
-
+    public Field[] getFieldOfColor(Color c){
+        return gameBoard.getFieldOfColor(c);
+    }
+    public String[] getFieldsAsString(Field[] f){
+        String[] s = new String[f.length];
+        for(int i = 0; i < f.length; i++)
+            s[i] = f[i].getName();
+        return s;
+    }
+    public Field getFieldByName(String name){
+        for(Field f : gameBoard.getFields())
+            if(f.getName().equals(name))
+                return f;
+        return null;
+    }
     public Player[] getPlayers() {
         return players;
     }
