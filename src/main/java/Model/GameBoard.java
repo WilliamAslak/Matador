@@ -14,32 +14,35 @@ public class GameBoard {
     }
 
     private void initFields() {
+        Color darkYellow    = new Color(200, 200, 0);
+        Color streetRed = new Color(200,0,0);
+        Color purple = new Color(128, 0, 128);
         fields = new Field[]{
                 new Start(4000),
-                new Street("RØDOVREVEJ", Color.BLUE, 1200),
+                new Street("RØDOVREVEJ", Color.cyan, 1200),
                 new Chance(),
-                new Street("Hvidovrevej", Color.BLUE, 1200),
+                new Street("Hvidovrevej", Color.cyan, 1200),
                 new Tax("Betal indkomstskat: 10% eller 4000", 4000),
-                new Street("Scandilines",Color.BLUE, 4000),
+                new Street("Scandilines",Color.cyan, 4000),
                 new Street("Roskildevej", Color.orange, 2000),
                 new Chance(),
                 new Street("Valby Langgade",Color.orange, 2000),
                 new Street("Allégade",Color.orange, 2400),
                 new Jail(),
-                new Street("Frederiksberg Allé",Color.yellow, 2800),
+                new Street("Frederiksberg Allé",darkYellow, 2800),
                 new Street("Squash", Color.red,3000),
-                new Street("Büllowsvej",Color.yellow, 2800),
-                new Street("Gl. Kongevej",Color.yellow, 3200),
+                new Street("Büllowsvej",darkYellow, 2800),
+                new Street("Gl. Kongevej",darkYellow, 3200),
                 new Street("Mols. Linien", Color.red,4000),
                 new Street("Bernstoftsvej",Color.gray, 3600),
                 new Chance(),
                 new Street("Hellerupvej",Color.gray,3600),
                 new Street("Strandvejen",Color.gray, 4000),
                 new Parking(),
-                new Street("Trianglen", Color.red,4000),
+                new Street("Trianglen", streetRed,4000),
                 new Chance(),
-                new Street("Østerbrogade",Color.red, 4000),
-                new Street("Grønningen",Color.red, 4800),
+                new Street("Østerbrogade",streetRed, 4000),
+                new Street("Grønningen",streetRed, 4800),
                 new Street("Scandilines",Color.blue, 4000),
                 new Street("Bredgade",Color.WHITE, 5200),
                 new Street("Kgs. Nytorv",Color.WHITE, 5200),
@@ -52,9 +55,9 @@ public class GameBoard {
                 new Street("Nygade",Color.YELLOW, 6400),
                 new Street("Scandilines",Color.blue, 4000),
                 new Chance(),
-                new Street("Frederiksberggade",Color.pink, 7000),
+                new Street("Frederiksberggade",purple, 7000),
                 new Tax("Ekstraordinær statsskat betal kr. 2000", 2000),
-                new Street("Rådhuspladsen",Color.pink, 8000)
+                new Street("Rådhuspladsen",purple, 8000)
         };
 
     }

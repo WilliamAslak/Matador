@@ -14,6 +14,11 @@ public class GameController {
     private static int moneyCounter=0;
     private int ensCounter = 0;
 
+    //flere farveværdier til at kunne se forskel på guien
+    Color darkYellow    = new Color(200, 200, 0);
+    Color streetRed = new Color(200,0,0);
+    Color purple = new Color(128, 0, 128);
+
     public GameController(Game game, GameGUI gui) {
         this.game = game;
         this.gui = gui;
@@ -193,7 +198,8 @@ public class GameController {
                         }
                     }
                 }
-                Field[] f = game.getFieldOfColor(Color.yellow);
+
+                Field[] f = game.getFieldOfColor(Color.magenta);
                 for (Field field : f) System.out.println(field.getName());
 
                 //BETAL
