@@ -20,6 +20,7 @@ public class Game {
     private boolean landedOnChance = false;
     private boolean landedOnTax = false;
     private boolean landedOnParking = false;
+    private boolean landedOnMetro = false;
     private boolean chanceMove = false;
     private boolean chanceMoneyUpdate = false;
     private boolean passedStart = false;
@@ -87,6 +88,7 @@ public class Game {
 
     }
     public void newTurn() {
+        landedOnMetro = false;
         landedOnChance = false;
         chanceMove = false;
         chanceMoneyUpdate = false;
@@ -155,6 +157,12 @@ public class Game {
                 option = "Fri parkering, høst hella moneros";
                 landedOnParking = true;
                 payoutParking();
+                break;
+
+            case "metro":
+                option = "Tag metroen";
+                landedOnMetro = true;
+                takeMetro();
                 break;
 
             default:
@@ -303,6 +311,27 @@ public class Game {
         }
     }
 
+    //Metro system
+    public void takeMetro(){
+        switch (currentPlayer.getPosition()){
+            case 5:
+                currentPlayer.setPosition(15);
+                break;
+
+            case 15:
+                currentPlayer.setPosition(25);
+                break;
+
+            case 25:
+                currentPlayer.setPosition(35);
+                break;
+
+            case 35:
+                currentPlayer.setPosition(5);
+                currentPlayer.getAccount().deposit(4000);
+                break;
+        }
+    }
     public void checkPassedStart(int newPosition) {
 
         if (newPosition >= 40) {
