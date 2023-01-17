@@ -25,8 +25,8 @@ public class ChanceDeck {
             chanceDeck.add(new CarInsurance("Betal din bilforsikring, 1000 kr"));
             chanceDeck.add(new CustomsDuty("Du har været udenlands og købt for mange smøger, betal 200 kr i told."));
             chanceDeck.add(new DentistBill("Tandlægeregning, betal 2000 kr"));
-            chanceDeck.add(new WonTheLottery("De har vundet i klasselotteriet. Modtag 500 kr"));
-            chanceDeck.add(new ReceiveDividend("De modtager Deres aktieudbytte. Modtag 1000 kr af banken"));
+            chanceDeck.add(new WonTheLottery("Du har vundet i klasselotteriet. Modtag 500 kr"));
+            chanceDeck.add(new ReceiveDividend("Du har modtaget aktieudbytte. Modtag 1000 kr af banken"));
             chanceDeck.add(new MoveThreeForward("Ryk tre felter frem"));
             chanceDeck.add(new MoveThreeBack("Ryk tre felter tilbage"));
             chanceDeck.add(new CarWash("Betal 300 kr for vognvask og smøring."));
