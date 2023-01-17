@@ -136,10 +136,12 @@ public class GameController {
                     int newBalance;
                     if (game.getCurrentPlayer().getPosition() == 4) {
                         newBalance = game.getCurrentPlayer().getAccount().getWallet() - 4000;
+                        GameController.updateMoneyCounter(4000);
                         gui.updateBalance(playerNumber, newBalance);
                     }
                     else if (game.getCurrentPlayer().getPosition() == 38){
                         newBalance = game.getCurrentPlayer().getAccount().getWallet() - 2000;
+                        GameController.updateMoneyCounter(2000);
                         gui.updateBalance(playerNumber, newBalance);
                     }
 
@@ -162,7 +164,7 @@ public class GameController {
 
     /**
      * @param moneyLost
-     * from chance cards whenever a player gets withdrawn money from their accounts.
+     * whenever a player gets withdrawn money from their accounts.
      */
     public static void updateMoneyCounter(int moneyLost) {
         moneyCounter += moneyLost;
