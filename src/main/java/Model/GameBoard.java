@@ -19,45 +19,45 @@ public class GameBoard {
         Color purple = new Color(128, 0, 128);
         fields = new Field[]{
                 new Start(4000),
-                new Street("RØDOVREVEJ", Color.cyan, 1200),
+                new Street("RØDOVREVEJ", Color.cyan, 1200,1000, new int[]{50, 250,750,2250,4000,6000}),
                 new Chance(),
-                new Street("Hvidovrevej", Color.cyan, 1200),
+                new Street("Hvidovrevej", Color.cyan, 1200,1000, new int[]{50,250,400,750,2250,6000}),
                 new Tax("Betal indkomstskat: 10% eller 4000", 4000),
-                new Street("Scandilines",Color.cyan, 4000),
-                new Street("Roskildevej", Color.orange, 2000),
+                new Street("Scandilines",Color.cyan, 4000,0,new int[]{4000}),
+                new Street("Roskildevej", Color.orange, 2000,1000,new int[]{100,600,1800,5400,8000,11000}),
                 new Chance(),
-                new Street("Valby Langgade",Color.orange, 2000),
-                new Street("Allégade",Color.orange, 2400),
+                new Street("Valby Langgade",Color.orange, 2000,1000,new int[]{100,600,1800,5400,8000,11000}),
+                new Street("Allégade",Color.orange, 2400,1000,new int[]{150,800,2000,6000,9000,12000}),
                 new Jail(),
-                new Street("Frederiksberg Allé",darkYellow, 2800),
-                new Street("Squash", Color.red,3000),
-                new Street("Büllowsvej",darkYellow, 2800),
-                new Street("Gl. Kongevej",darkYellow, 3200),
-                new Street("Mols. Linien", Color.red,4000),
-                new Street("Bernstoftsvej",Color.gray, 3600),
+                new Street("Frederiksberg Allé",darkYellow, 2800,2000,new int[]{200,1000,3000,9000,12500,15000}),
+                new Street("Squash", Color.red,3000,0,new int[]{3000}),
+                new Street("Büllowsvej",darkYellow, 2800,2000,new int[]{200,1000,3000,9000,12500,15000}),
+                new Street("Gl. Kongevej",darkYellow, 3200,2000,new int[]{250,1250,3750,10000,14000,18000}),
+                new Street("Mols. Linien", Color.red,4000,0,new int[]{4000}),
+                new Street("Bernstoftsvej",Color.gray, 3600,2000,new int[]{300,1400,4000,11000,15000,19000}),
                 new Chance(),
-                new Street("Hellerupvej",Color.gray,3600),
-                new Street("Strandvejen",Color.gray, 4000),
+                new Street("Hellerupvej",Color.gray,3600,2000,new int[]{300,1400,4000,11000,15000,19000}),
+                new Street("Strandvejen",Color.gray, 4000,2000,new int[]{350,1600,4400,12000,16000,20000}),
                 new Parking(),
-                new Street("Trianglen", streetRed,4000),
+                new Street("Trianglen", streetRed,4000,3000,new int[]{350,1800,5000,14000,17500,21000}),
                 new Chance(),
-                new Street("Østerbrogade",streetRed, 4000),
-                new Street("Grønningen",streetRed, 4800),
-                new Street("Scandilines",Color.blue, 4000),
-                new Street("Bredgade",Color.WHITE, 5200),
-                new Street("Kgs. Nytorv",Color.WHITE, 5200),
-                new Street("Coca Cola",Color.red, 3000),
-                new Street("Østergade",Color.WHITE, 5600),
+                new Street("Østerbrogade",streetRed, 4000,3000,new int[]{350,1800,5000,14000,17500,21000}),
+                new Street("Grønningen",streetRed, 4800,3000,new int[]{400,2000,6000,15000,18500,22000}),
+                new Street("Scandilines",Color.blue, 4000,3000,new int[]{4000}),
+                new Street("Bredgade",Color.WHITE, 5200,3000,new int[]{450,2200,6600,16000,19500,23000}),
+                new Street("Kgs. Nytorv",Color.WHITE, 5200,3000,new int[]{450,2200,6600,16000,19500,23000}),
+                new Street("Coca Cola",Color.red, 3000,0,new int[]{3000}),
+                new Street("Østergade",Color.WHITE, 5600,3000,new int[]{500,2400,7200,17000,20500,24000}),
                 new GoToJail(),
-                new Street("Amagertorv",Color.YELLOW, 6000),
-                new Street("Vimmelskaftet",Color.YELLOW, 6000),
+                new Street("Amagertorv",Color.YELLOW, 6000,4000,new int[]{550,2600,7800,18000,22000,25000}),
+                new Street("Vimmelskaftet",Color.YELLOW, 6000,4000,new int[]{550,2600,7800,18000,22000,25000}),
                 new Chance(),
-                new Street("Nygade",Color.YELLOW, 6400),
-                new Street("Scandilines",Color.blue, 4000),
+                new Street("Nygade",Color.YELLOW, 6400,4000,new int[]{600,3000,9000,20000,24000,28000}),
+                new Street("Scandilines",Color.blue, 4000,0,new int[]{4000}),
                 new Chance(),
-                new Street("Frederiksberggade",purple, 7000),
+                new Street("Frederiksberggade",purple, 7000,4000,new int[]{700,3500,10000,22000,26000,30000}),
                 new Tax("Ekstraordinær statsskat betal kr. 2000", 2000),
-                new Street("Rådhuspladsen",purple, 8000)
+                new Street("Rådhuspladsen",purple, 8000,4000,new int[]{1000,4000,12000,28000,34000,40000})
         };
 
     }
@@ -70,7 +70,7 @@ public class GameBoard {
         ArrayList<Field> fieldOfColor = new ArrayList<>();
         for (int i = 0; i < getFields().length; i++){
             if(getFields()[i].getClass().equals(Street.class))
-                if(((Street) getFields()[i]).getColor().equals(color))
+                if(((Street) getFields()[i]).getColor().equals(color) && ((Street) getFields()[i]).getHouse() != 5)
                     fieldOfColor.add(getFields()[i]);
         }
         //midlertidig scuffed løsning
