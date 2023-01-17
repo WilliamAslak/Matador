@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Fields.Field;
+import Model.Fields.Street;
 import gui_fields.GUI_Field;
 import Model.Game;
 import View.GameGUI;
@@ -199,9 +200,6 @@ public class GameController {
                     }
                 }
 
-                Field[] f = game.getFieldOfColor(Color.magenta);
-                for (Field field : f) System.out.println(field.getName());
-
                 //BETAL
                 if (game.getPaidPlayer() != null) {
                     int newBalance = game.getPaidPlayer().getAccount().getWallet();
@@ -224,6 +222,11 @@ public class GameController {
                 if (game.hasLandedOnParking()) {
                     //gui.action(game.getMessage(), game.getOption());
                 }
+
+                if(game.getFields()[game.getCurrentPlayer().getPosition()].getClass().equals(Street.class))
+                    if(game.playerCanBuildHotel(((Street) game.getFields()[game.getCurrentPlayer().getPosition()]).getColor()))
+                        if(GameGUI.choiceAction(game.getCurrentPlayer().getName() + " du har muligheden for at bygge et hus/hotel på de her farver", "byg", "slut tur"))
+                            gui.getUserSelection("Hvor vil du bygge?",game.getFieldsAsString(game.getFieldOfColor(((Street) game.getFields()[game.getCurrentPlayer().getPosition()]).getColor())));
 
 
                 //Opdater saldo

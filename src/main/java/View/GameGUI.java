@@ -71,6 +71,9 @@ public class GameGUI {
     public static boolean choiceAction(String msg, String leftBtn, String rightBtn){
         return gui.getUserLeftButtonPressed(msg,leftBtn,rightBtn);
     }
+    public String getUserSelection(String msg, String... options){
+        return gui.getUserSelection(msg,options);
+    }
     public void showDie(int faceValue1, int faceValue2) {
         gui.setDice(faceValue1, faceValue2);
     }

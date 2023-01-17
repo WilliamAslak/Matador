@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameBoard {
-    private Field[] fields;
+    private static Field[] fields;
 
     public GameBoard() {
         initFields();
@@ -62,7 +62,7 @@ public class GameBoard {
 
     }
 
-    public Field[] getFields() {
+    public static Field[] getFields() {
         return fields;
     }
     public Field[] getFieldOfColor(Color color){

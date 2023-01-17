@@ -214,6 +214,13 @@ public class Game {
         return currentPlayer.getAccount().getWallet() >= ((Street) gameBoard.getFields()[position]).getPrice();
     }
 
+    public boolean playerCanBuildHotel(Color c){
+        Field[] f = getFieldOfColor(c);
+        for (Field field : f) if(!currentPlayer.getOwnedProperties().contains(field))
+            return false;
+        return true;
+    }
+
     private void takeChance() {
         ChanceCard chanceCard = chanceDeck.drawCard();
         chanceCard.process(players, currentPlayer);
@@ -377,7 +384,12 @@ public class Game {
     public Field[] getFieldOfColor(Color c){
         return gameBoard.getFieldOfColor(c);
     }
-
+    public String[] getFieldsAsString(Field[] f){
+        String[] s = new String[f.length];
+        for(int i = 0; i < f.length; i++)
+            s[i] = f[i].getName();
+        return s;
+    }
     public Player[] getPlayers() {
         return players;
     }
