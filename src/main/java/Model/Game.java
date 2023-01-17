@@ -209,6 +209,10 @@ public class Game {
         ((Street) gameBoard.getFields()[position]).setIsOwned(true);
     }
 
+    public boolean canAfford(Integer position){
+        return currentPlayer.getAccount().getWallet() >= ((Street) gameBoard.getFields()[position]).getPrice();
+    }
+
     private void takeChance() {
         ChanceCard chanceCard = chanceDeck.drawCard();
         chanceCard.process(players, currentPlayer);
