@@ -8,6 +8,10 @@ public class MoveThreeBack extends ChanceCard {
 
     @Override
     public void process(Player[] players, Player current) {
-        current.setPosition(current.getPosition()-3);
+        if (current.getPosition() - 3 <= 0) {
+            current.setPosition(39);
+        }
+        else
+            current.setPosition(current.getPosition()-3);
     }
 }
